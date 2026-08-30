@@ -56,7 +56,7 @@
       <h1 style="margin:0 0 10px; font-size:64px; line-height:0.98; color:#14181b; font-weight:900; letter-spacing:-2.5px;">Newsheen</h1>
       <div style="font-size:22px; font-weight:700; color:#00a35f; margin-bottom:18px; letter-spacing:-0.3px;">A cat lamp with a hacker's brain.</div>
       <div style="font-size:14px; font-weight:600; color:#14181b; margin-bottom:18px;">By <a href="https://retia.io" target="_blank" rel="noopener">Retia LLC</a>.</div>
-      <p style="margin:0 0 16px; max-width:52ch; font-size:16px;">A translucent silicone cat lamp with an ESP32-S3 puck inside: eight addressable LEDs, a 915&nbsp;MHz LoRa radio, an IR receiver, a microphone header, and native USB-C.</p>
+      <p style="margin:0 0 16px; max-width:52ch; font-size:16px;">A translucent silicone cat lamp with an ESP32-S3 puck inside: eight addressable LEDs, a button, and native USB-C. Add a 915&nbsp;MHz LoRa radio, an IR receiver, or a microphone through the onboard headers to grow what it does.</p>
       <p style="margin:0 0 30px; max-width:52ch; font-size:16px;">One little board, a shelf full of personalities — a music-reactive lamp, an internet radio, a LoRa mesh node, or a pocket hardware-hacking multitool. Pick one and flash it right here in your browser.</p>
       <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
         <a href="#flash" class="btn-dark" style="font-size:15px; padding:15px 28px; border-radius:10px;">[ flash the Sheen ]</a>
@@ -128,7 +128,7 @@
           </li>
           <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
             <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">02</span>
-            <span><strong style="color:#14181b; font-size:16px;">Antenna first (for the radio builds).</strong><br>Meshtastic, MeshCore, RNode and Bit Pirate drive the onboard SX1262. <em style="color:#c77d00;">Before you transmit,</em> attach a 915&nbsp;MHz antenna — receiving is safe, but transmitting into nothing can cook the radio.</span>
+            <span><strong style="color:#14181b; font-size:16px;">Add the radio for mesh (optional).</strong><br>The Sheen ships without a radio. Meshtastic, MeshCore, RNode and Bit Pirate need a Seeed Wio-SX1262 fitted. Once it's in, <em style="color:#c77d00;">before you transmit,</em> attach a 915&nbsp;MHz antenna — receiving is safe, but transmitting into nothing can cook the radio.</span>
           </li>
           <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
             <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">03</span>
@@ -142,9 +142,9 @@
         <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:28px 30px; align-self:start;">
           <div style="font-family:'IBM Plex Mono',monospace; color:#d6008f; font-weight:600; font-size:14px; margin-bottom:18px;">!! Sheen quirks worth knowing</div>
           <ol style="margin:0; padding-left:20px; display:grid; gap:16px; font-size:14px;">
-            <li><strong style="color:#14181b;">Running on a battery?</strong> The puck's 3.3&nbsp;V rail wants a real 5&nbsp;V feed, so a bare LiPo browns it out. Use a charge-and-boost board into the <code class="chip">N-EXT</code> pad and bridge <code class="chip">JP1</code> — details in <a href="#hardware">Hardware</a>.</li>
-            <li><strong style="color:#14181b;">The audio builds need an amp.</strong> Newsheen Radio is silent until you wire a MAX98357A to the J3 header. The mesh and lamp builds need nothing extra.</li>
-            <li><strong style="color:#14181b;">Stuck flashing?</strong> The native-USB S3 can sit in download mode — unplug and replug, then hit CONNECT again.</li>
+            <li><strong style="color:#14181b;">Stuck flashing?</strong> Hold the <code class="chip">BOOT</code> button while you plug in USB, then release — that forces download mode. Hit CONNECT again.</li>
+            <li><strong style="color:#14181b;">Running on a battery?</strong> Feed a regulated 5&nbsp;V into the <code class="chip">N-EXT</code> pad and bridge <code class="chip">JP1</code> — the onboard regulator makes 3.3&nbsp;V from it. Never put 5&nbsp;V or a raw battery on the <code class="chip">3V3</code> pad; that pad is the regulator's output. Details in <a href="#hardware">Hardware</a>.</li>
+            <li><strong style="color:#14181b;">Add-ons unlock builds.</strong> Newsheen Radio needs a MAX98357A amp and speaker on the J3 header; WLEDkitty's sound-reactive mode needs an I²S mic there, and its remote needs the IR receiver fitted.</li>
           </ol>
         </div>
       </div>
@@ -173,7 +173,7 @@
             <button id="btn-local" class="btn-outline" style="background:transparent; font-size:14px; padding:13px 22px; border-radius:10px; cursor:pointer;">[ FLASH LOCAL .BIN ]</button>
             <input type="file" accept=".bin" id="fw-file" style="display:none;">
           </div>
-          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#98a09a; line-height:1.7;">stuck? the native-USB S3 sometimes waits in download mode — <span style="color:#14181b; font-weight:600;">unplug and replug</span> the Sheen, then hit CONNECT again.<br>bins mirrored from <a href="https://scriptkitty.sh" target="_blank" rel="noopener">scriptkitty.sh</a>; each is verified against its hash before writing.</div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#98a09a; line-height:1.7;">stuck? hold the <span style="color:#14181b; font-weight:600;">BOOT</span> button while you plug in USB, then release — that forces download mode. hit CONNECT again.<br>bins mirrored from <a href="https://scriptkitty.sh" target="_blank" rel="noopener">scriptkitty.sh</a>; each is verified against its hash before writing.</div>
         </div>
         <div style="border-radius:14px; background:#0c1310; box-shadow:0 20px 50px -18px rgba(20,24,27,0.4); overflow:hidden;">
           <div style="display:flex; align-items:center; gap:8px; padding:10px 16px; border-bottom:1px solid #1c2a24; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#5a7a68;">
@@ -252,13 +252,14 @@
       <h2 style="margin:0 0 44px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">Tech specs</h2>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; margin-bottom:48px;" class="grid-2col">
         <div style="display:grid; gap:11px; font-size:13.5px;">
-          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">MCU</span><span><strong style="color:#14181b;">ESP32-S3-WROOM-1</strong> — dual-core 240 MHz · WiFi + BLE · 16 MB flash · 2 MB PSRAM · native USB-C</span></div>
-          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">LEDS</span><span><strong style="color:#14181b;">8× WS2812B ring</strong> — top-facing, through a translucent silicone cat lamp · GPIO 16</span></div>
-          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">RADIO</span><span><strong style="color:#14181b;">Seeed Wio-SX1262 LoRa</strong> — 915 MHz · wire-antenna pad · SX126x drivers</span></div>
-          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">IR</span><span><strong style="color:#14181b;">IR receiver</strong> — GPIO 4 · works with the bundled 21-key remote in WLEDkitty</span></div>
-          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">AUDIO</span><span><strong style="color:#14181b;">I²S header (J3)</strong> — mic in, or a MAX98357A amp out for Newsheen Radio</span></div>
-          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">INPUT</span><span><strong style="color:#14181b;">User button</strong> — GPIO 17, active-low · BOOT on GPIO 0</span></div>
-          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">POWER</span><span><strong style="color:#14181b;">USB-C, or 5 V external</strong> — via the N-EXT pad + JP1 bridge (see below)</span></div>
+          <p style="margin:0 0 6px; font-size:13.5px; color:#5d6659;">Stock: an ESP32-S3, 8 LEDs, a button, and USB-C. The radio, IR receiver, and mic/amp are footprints you populate to add capabilities.</p>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">MCU</span><span><strong style="color:#14181b;">ESP32-S3-WROOM-1</strong> — dual-core 240 MHz · WiFi + BLE · 16 MB flash · 2 MB PSRAM (N16R2) · native USB-C</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">LEDS</span><span><strong style="color:#14181b;">8× WS2812B ring</strong> — top-facing, through the translucent lamp · GPIO 16 (via a 3V3→5V level shifter)</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">INPUT</span><span><strong style="color:#14181b;">User button</strong> — GPIO 17, active-low · BOOT on GPIO 0 · status LED on GPIO 48</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">POWER</span><span><strong style="color:#14181b;">USB-C, or 5 V external</strong> — external 5 V via the N-EXT pad + JP1 bridge (see below)</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">+ RADIO</span><span><em style="color:#8a5a00;">add-on</em> — Seeed Wio-SX1262 LoRa (915 MHz, wire-antenna pad) for the mesh builds</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">+ IR</span><span><em style="color:#8a5a00;">add-on</em> — VS1838B receiver on GPIO 4 for the 21-key remote (OUT leg in the square pad)</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">+ AUDIO</span><span><em style="color:#8a5a00;">add-on</em> — J3 header: an I²S mic (sound-reactive), or a MAX98357A amp + speaker for Newsheen Radio</span></div>
         </div>
         <div style="border-radius:14px; background:#0c1310; overflow:hidden; box-shadow:0 20px 50px -18px rgba(20,24,27,0.4);">
           <div style="display:flex; align-items:center; gap:8px; padding:10px 16px; border-bottom:1px solid #1c2a24; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#5a7a68;">
@@ -267,28 +268,35 @@
             <span style="width:9px; height:9px; border-radius:50%; background:#3dffa0;"></span>
             <span style="margin-left:8px;">$ cat pinout.map — the ones you'll reach for</span>
           </div>
-          <pre style="margin:0; padding:18px 20px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.75; color:#8fb8a3; overflow:auto;">neopixel  8× WS2812B ring ── GPIO 16
-button    user (SW3) ─────── GPIO 17   BOOT ── GPIO 0
-ir rx     receiver ───────── GPIO 4
-i2c/mic   SDA 35 · SCL 36    I²S WS 37 · SCK 38 · SD 39  (J3)
-lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
-          RESET 9 · BUSY 47 · DIO1 21 · RF_SW 14
+          <pre style="margin:0; padding:18px 20px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.75; color:#8fb8a3; overflow:auto;"># stock
+leds      8× WS2812B ring ── GPIO 16   (via 3V3→5V level shifter)
+button    user ───────────── GPIO 17   BOOT ── GPIO 0
+status    LED ────────────── GPIO 48
 usb       native S3 ──────── D- 19 · D+ 20
-power     N-EXT pad + JP1 bridge for 5 V external</pre>
+power     N-EXT pad + JP1 bridge for external 5 V
+
+# add-on footprints (populate to enable)
+ir rx     VS1838B ────────── GPIO 4    (OUT leg in the square pad)
+mic/i2c   SDA 35 · SCL 36 · I²S WS 37 · SCK 38 · SD 39   (J3 header)
+lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
+          NRST 9 · BUSY 47 · DIO1 21 · RF_SW 14</pre>
         </div>
       </div>
 
       <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:36px; align-items:start;">
         <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:24px 28px;">
           <div style="font-family:'IBM Plex Mono',monospace; color:#c77d00; font-size:13px; font-weight:600; margin-bottom:10px;">!! running it on a battery</div>
-          <p style="margin:0 0 12px; font-size:14px;">The 3.3&nbsp;V rail comes from an AMS1117 fed by the board's 5&nbsp;V bus, which drops about 1.1&nbsp;V. Feed it a bare 3.7&nbsp;V LiPo and the ESP32-S3 browns out everywhere except near full charge.</p>
-          <p style="margin:0 0 12px; font-size:14px;">Run the cell through a charge-and-boost board set to 5&nbsp;V: its output to the corner <code class="chip">N-EXT</code> pad and a <code class="chip">GND</code> pad, then bridge the <code class="chip">JP1</code> jumper beside it — the silk reads <code class="chip">SOLDER JP1 FOR EXT PWR</code>. Charge through the boost board's own USB, not the Sheen's.</p>
-          <div style="font-size:13px; color:#98a09a;">A wiring diagram and part picks live in the build notes — ask in the <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener">Discord</a>.</div>
+          <p style="margin:0 0 12px; font-size:14px;"><strong style="color:#14181b;">External power goes to the <code class="chip">N-EXT</code> pad only — never wire 5&nbsp;V or a battery to the <code class="chip">3V3</code> pad.</strong> That pad is the regulator's output; back-feeding it can damage the board.</p>
+          <p style="margin:0 0 12px; font-size:14px;">The 3.3&nbsp;V rail comes from an onboard regulator fed by the 5&nbsp;V bus, so external power must be a regulated 5&nbsp;V — a bare 3.7&nbsp;V LiPo browns the board out. Run the cell through a charge-and-boost board set to 5&nbsp;V: its output to the corner <code class="chip">N-EXT</code> pad and a <code class="chip">GND</code> pad, then bridge the <code class="chip">JP1</code> jumper beside it — the silk reads <code class="chip">SOLDER JP1 FOR EXT PWR</code>. Charge through the boost board's own USB, not the Sheen's.</p>
+          <div style="font-size:13px; color:#98a09a;">Full GPIO map and build notes: <a href="https://github.com/RetiaLLC/Newsheen/blob/main/hardware/pinout.md" target="_blank" rel="noopener">hardware/pinout.md</a>. Part picks and a wiring diagram: ask in the <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener">Discord</a>.</div>
         </div>
         <div>
           <h3 style="margin:0 0 10px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">The shell &amp; case files</h3>
-          <p style="margin:0 0 14px; max-width:52ch; font-size:15px;">The puck lives inside the translucent silicone Pusheen lamp. Printable mounts, the board outline, and a 3D model are on the way here — the same case kit the badge site ships.</p>
-          <div style="border:2px dashed #d5cfc0; border-radius:10px; padding:16px 18px; background:#faf9f5; font-family:'IBM Plex Mono',monospace; font-size:13px; color:#98a09a;">// case + board CAD — coming soon</div>
+          <p style="margin:0 0 14px; max-width:52ch; font-size:15px;">The puck sits in a 3D-printed base under the translucent silicone lamp. The printable base, button, and retaining ring (v4), plus board STLs and the pinout, live in the Newsheen repo.</p>
+          <img src="assets/newsheen-board-top.png" alt="Top-down render of the Newsheen ESP32-S3 controller board" style="width:100%; max-width:280px; border-radius:12px; border:1px solid #e2ddd0; margin-bottom:14px;">
+          <div style="font-size:14px; line-height:1.9;">→ <a href="https://github.com/RetiaLLC/Newsheen/tree/main/hardware/3d" target="_blank" rel="noopener">hardware/3d</a> — printed base + button + retaining ring + board STLs<br>
+          → <a href="https://github.com/RetiaLLC/Newsheen/blob/main/hardware/pinout.md" target="_blank" rel="noopener">hardware/pinout.md</a> — full GPIO map + build notes<br>
+          → <a href="https://github.com/RetiaLLC/Newsheen/releases/tag/v1.0.0" target="_blank" rel="noopener">Newsheen v1.0.0 release</a> — ready-to-flash factory bins</div>
         </div>
       </div>
     </div>
@@ -302,7 +310,8 @@ power     N-EXT pad + JP1 bridge for 5 V external</pre>
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://retia.io" target="_blank" rel="noopener" class="link-lit">get your own Sheen</a> — the Newsheen cat-lamp puck on the Retia store</div>
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://scriptkitty.sh" target="_blank" rel="noopener" class="link-lit">scriptkitty.sh</a> — Retia's browser flasher for the whole hardware family</div>
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://catbadge.online" target="_blank" rel="noopener" class="link-lit">catbadge.online</a> — the same treatment for the ScriptKitty DEF CON badge</div>
-        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://github.com/RetiaLLC/WLEDkitty" target="_blank" rel="noopener" class="link-lit">WLEDkitty</a> · <a href="https://github.com/RetiaLLC/NewsheenRadio" target="_blank" rel="noopener" class="link-lit">NewsheenRadio</a> · <a href="https://github.com/RetiaLLC/MeshCore" target="_blank" rel="noopener" class="link-lit">MeshCore</a> — firmware sources</div>
+        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://github.com/RetiaLLC/Newsheen" target="_blank" rel="noopener" class="link-lit">github.com/RetiaLLC/Newsheen</a> — the board: 3D-printed base, pinout, IR-remote firmware (<a href="https://github.com/RetiaLLC/Newsheen/releases/tag/v1.0.0" target="_blank" rel="noopener" class="link-lit">v1.0.0 release</a>)</div>
+        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> firmware sources: <a href="https://github.com/RetiaLLC/WLEDkitty" target="_blank" rel="noopener" class="link-lit">WLEDkitty</a> · <a href="https://github.com/RetiaLLC/NewsheenRadio" target="_blank" rel="noopener" class="link-lit">NewsheenRadio</a> · <a href="https://github.com/RetiaLLC/ScriptkittyMeshtastic" target="_blank" rel="noopener" class="link-lit">Meshtastic</a> · <a href="https://github.com/RetiaLLC/MeshCore" target="_blank" rel="noopener" class="link-lit">MeshCore</a> · <a href="https://github.com/RetiaLLC/ESP32-Bus-Pirate" target="_blank" rel="noopener" class="link-lit">Bit Pirate</a></div>
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://github.com/skickar/catlamp.site" target="_blank" rel="noopener" class="link-lit">github.com/skickar/catlamp.site</a> — this site's source</div>
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener" class="link-lit">Retia Discord server</a> — come hang with the litter</div>
       </div>
