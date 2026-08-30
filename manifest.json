@@ -27,35 +27,23 @@
   {
    "id": "newsheen-radio",
    "name": "Newsheen Radio",
-   "ver": "1.0.1",
-   "desc": "Internet radio for the Sheen. Streams MP3 and AAC over HTTP/HTTPS, searches a directory of tens of thousands of stations, and drives the 8-LED ring from live frequency analysis of whatever is playing. Includes a spinnable globe you tap to tune, 15 light effects with 4 audio-reactive visualizers, and a speech synth that reads out setup.",
-   "buildsLine": "needs a MAX98357A amp + speaker on the J3 header — see quirks",
-   "note": "Before flashing, wire a MAX98357A amplifier to J3 (35_SDA→LRC, 36_SCL→BCLK, 37_WS→DIN, 39_SD→GAIN, 38_SCK→SD, plus GND and 3V3). Join Wi-Fi 'Newsheen-Audio' (password meowmeow); the setup page opens itself.",
+   "ver": "1.1.0",
+   "desc": "Internet radio for the Sheen. Streams MP3 and AAC over HTTP/HTTPS and drives the 8-LED ring from a live frequency analysis of whatever is playing, with a spinnable globe you tap to tune, 15 light effects (4 audio-reactive), and a speech synth that reads out setup. Two builds: a small one that searches an online directory, or a ~16 MB one that carries a 37,963-station atlas on the puck so the globe and country browser work with no directory service.",
+   "buildsLine": "two builds — stream from an online directory, or carry the offline atlas",
+   "note": "Before flashing, wire a MAX98357A amplifier to J3 (35_SDA→LRC, 36_SCL→BCLK, 37_WS→DIN, 39_SD→GAIN, 38_SCK→SD, plus GND and 3V3). Join Wi-Fi 'Newsheen-Audio' (password meowmeow); the setup page opens itself. The atlas build is ~16 MB, replaces the whole filesystem (clearing any uploaded MP3s), and takes about a minute to flash.",
    "docs": "https://github.com/RetiaLLC/NewsheenRadio",
    "src": "https://github.com/RetiaLLC/NewsheenRadio",
    "builds": [
     {
      "file": "newsheen-radio.bin",
-     "label": "Newsheen Radio — directory search, ~1.6 MB",
+     "label": "directory search — streams from an online directory (~1.6 MB, v1.0.1)",
      "url": "firmware/newsheen-radio.bin",
      "addr": 0,
      "sha256": "d8a57c83f643927dc93a49ae32c4712083c4df1a2314481786b00a19fb359b67"
-    }
-   ]
-  },
-  {
-   "id": "newsheen-radio-catalog",
-   "name": "Newsheen Radio (offline atlas)",
-   "ver": "1.1.0",
-   "desc": "Newsheen Radio with 37,963 stations from 227 countries stored on the puck itself, so the globe and country browser work without any directory service. Every station carries coordinates — spin the world, zoom into a region and the puck loads the stations actually in view. Otherwise identical to Newsheen Radio.",
-   "buildsLine": "~16 MB whole-filesystem image — flashing takes about a minute",
-   "note": "This image is ~16 MB and replaces the whole filesystem, so it also clears any MP3s you uploaded. Same MAX98357A wiring as Newsheen Radio. Flashing takes roughly a minute.",
-   "docs": "https://github.com/RetiaLLC/NewsheenRadio",
-   "src": "https://github.com/RetiaLLC/NewsheenRadio",
-   "builds": [
+    },
     {
      "file": "newsheen-radio-catalog.bin",
-     "label": "Newsheen Radio + offline atlas — ~16 MB, ~1 min",
+     "label": "offline atlas — 37,963 stations on the puck (~16 MB, ~1 min, v1.1.0)",
      "url": "firmware/newsheen-radio-catalog.bin",
      "addr": 0,
      "sha256": "077a678eb6b49ba11979b990e459cc9de2ef806662a4fc19ecfbd6c09f9f164f"
