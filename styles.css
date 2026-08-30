@@ -1,0 +1,161 @@
+/* ScriptKitty DEF CON Badge — base styles, hover states, responsive fallbacks.
+   Layout + type live inline in index.html (recreated 1:1 from the design reference). */
+
+body { margin: 0; background: #faf9f5; }
+a { color: #00834c; text-decoration: none; }
+a:hover { color: #d6008f; }
+::selection { background: #3dffa0; color: #14181b; }
+@keyframes blinkc { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+
+.nav-link { color: #14181b; }
+.nav-link:hover { color: #00a35f; }
+.nav-word:hover { color: #00a35f; }
+.nav-buy { color: #d6008f; }
+.nav-buy:hover { color: #b0006f; }
+
+/* commerce CTA — buy the badge (retia.io storefront) */
+.btn-buy {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  background: #d6008f;
+  color: #fff;
+  white-space: nowrap;
+}
+.btn-buy:hover { background: #b0006f; color: #fff; }
+
+/* ---- left-rail chapter nav (blog-style TOC with scrollspy) ---- */
+.chapters { font-family: 'IBM Plex Mono', monospace; }
+.chapters .ch-title { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: #98a09a; margin-bottom: 12px; }
+.chapters nav { display: flex; flex-direction: column; gap: 2px; }
+.chapters a {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 7px 12px; border-radius: 8px; border-left: 2px solid transparent;
+  color: #3c443f; font-size: 13.5px; font-weight: 600; text-decoration: none; white-space: nowrap;
+}
+.chapters a .n { color: #98a09a; font-size: 11px; }
+.chapters a:hover { background: #f2efe7; color: #14181b; }
+.chapters a.active { color: #00a35f; background: #eefaf3; border-left-color: #00a35f; }
+.chapters a.active .n { color: #00a35f; }
+
+/* desktop: fixed vertical rail on the left, content shifted to clear it */
+@media (min-width: 1080px) {
+  .chapters {
+    position: fixed; top: 57px; left: 0; width: 208px; height: calc(100vh - 57px);
+    padding: 26px 16px; overflow-y: auto; z-index: 40;
+    background: #faf9f5; border-right: 1px solid #e2ddd0;
+  }
+  .content { margin-left: 208px; }
+}
+
+/* narrow: horizontal chapter strip under the nav (scrolls sideways) */
+@media (max-width: 1079px) {
+  .chapters {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px; overflow-x: auto;
+    background: #faf9f5; border-bottom: 1px solid #e2ddd0;
+  }
+  .chapters .ch-title { display: none; }
+  .chapters nav { flex-direction: row; gap: 4px; }
+  .chapters a { border-left: none; padding: 6px 10px; }
+  .content { margin-left: 0; }
+}
+
+.btn-dark {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  background: #14181b;
+  color: #3dffa0;
+  white-space: nowrap;
+}
+.btn-dark:hover { background: #232a26; color: #3dffa0; }
+
+.btn-outline {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  color: #14181b;
+  border: 2px solid #14181b;
+  white-space: nowrap;
+}
+.btn-outline:hover { border-color: #00a35f; color: #00a35f; }
+
+.btn-ghost {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  color: #3c443f;
+  border: 2px solid #d5cfc0;
+  white-space: nowrap;
+}
+.btn-ghost:hover { border-color: #14181b; color: #14181b; }
+
+button[disabled] { opacity: 0.55; cursor: default; }
+button[disabled]:hover { background: #14181b; }
+.btn-outline[disabled]:hover { background: transparent; border-color: #14181b; color: #14181b; }
+
+.ser-send:hover { background: rgba(61,255,160,0.08); }
+
+.chip {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  background: #efece3;
+  padding: 2px 6px;
+  border-radius: 5px;
+  color: #14181b;
+}
+.chip-band { background: #e6e2d6; }
+.chip-sm { font-size: 12px; padding: 1px 5px; border-radius: 4px; }
+
+.spec-k {
+  font-family: 'IBM Plex Mono', monospace;
+  color: #00a35f;
+  font-weight: 600;
+  font-size: 12.5px;
+}
+
+.link-dim { color: #98a09a; }
+.link-dim:hover { color: #d6008f; }
+.link-guide { color: #00a35f; }
+.link-guide:hover { color: #d6008f; }
+.link-lit { color: #3dffa0; font-weight: 600; }
+.link-lit:hover { color: #ff4fd8; }
+.link-static { color: #3dffa0; }
+.link-static:hover { color: #3dffa0; }
+
+/* catalog rows (built by app.js) */
+.cat-row {
+  display: grid;
+  grid-template-columns: 64px 250px 1fr 130px;
+  gap: 24px;
+  padding: 26px 4px;
+  border-bottom: 1px solid #d5cfc0;
+  align-items: start;
+}
+
+/* build-picker rows */
+.build-row {
+  display: flex;
+  gap: 12px;
+  padding: 11px 16px;
+  border: 2px solid #e2ddd0;
+  border-radius: 10px;
+  cursor: pointer;
+  align-items: baseline;
+  flex-wrap: wrap;
+  background: #fff;
+}
+.build-row.sel { border-color: #00a35f; }
+
+/* responsive: the reference is a fixed desktop layout; collapse the grids on small screens */
+@media (max-width: 920px) {
+  .grid-hero, .grid-2col { grid-template-columns: 1fr !important; }
+  .grid-3col { grid-template-columns: 1fr !important; }
+  .cat-row { grid-template-columns: 64px 1fr; grid-auto-flow: dense; }
+  .cat-row .cat-desc { grid-column: 1 / -1; }
+  .cat-row .cat-links { grid-column: 1 / -1; flex-direction: row !important; align-items: flex-start !important; }
+  .grid-dl { grid-template-columns: 1fr !important; }
+  .grid-dl a, .grid-dl span:last-child { justify-self: start !important; }
+  h1 { font-size: 44px !important; }
+  h2 { font-size: 34px !important; }
+}

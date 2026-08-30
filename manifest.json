@@ -1,0 +1,225 @@
+{
+ "_note": "Firmware catalog for newsheen.site. All hosted builds are served same-origin from firmware/ (browsers CORS-block raw github fetches). Bins mirrored from scriptkitty.sh; every entry pins a sha256 the flasher verifies before writing. gate:true entries are transmit/attack-capable and require an authorization affirmation before flashing.",
+ "firmware": [
+  {
+   "id": "newsheen-wled",
+   "mark": "=^..^=",
+   "name": "WLEDkitty",
+   "ver": "17.0.0-dev",
+   "recommended": true,
+   "desc": "The flagship cat-lamp build. Drives the 8 LEDs inside the translucent Sheen, makes them dance to sound through the onboard I²S mic, and takes a 21-key IR remote. Boots into the Freqwave audio visualizer with the full WLED web UI over its own Wi-Fi AP.",
+   "buildsLine": "1 image — flashed here, then set up over Wi-Fi (http://4.3.2.1)",
+   "note": "After flashing, join its Wi-Fi network 'WLED-AP' (password wled1234) and open http://4.3.2.1 to name your Sheen's hotspot or join your own network.",
+   "docs": "https://github.com/RetiaLLC/WLEDkitty",
+   "src": "https://github.com/RetiaLLC/WLEDkitty",
+   "logo": "assets/logo-wled.png",
+   "builds": [
+    {
+     "file": "newsheen-wled.bin",
+     "label": "WLEDkitty — wipes old Wi-Fi/LED config on flash",
+     "url": "firmware/newsheen-wled.bin",
+     "addr": 0,
+     "sha256": "f22a65748e7767d08cb19b7f6f1f29d7d9a60685dcabb00772cc6f76ecd79d9b",
+     "erase": true
+    }
+   ]
+  },
+  {
+   "id": "newsheen-radio",
+   "name": "Newsheen Radio",
+   "ver": "1.0.1",
+   "desc": "Internet radio for the Sheen. Streams MP3 and AAC over HTTP/HTTPS, searches a directory of tens of thousands of stations, and drives the 8-LED ring from live frequency analysis of whatever is playing. Includes a spinnable globe you tap to tune, 15 light effects with 4 audio-reactive visualizers, and a speech synth that reads out setup.",
+   "buildsLine": "needs a MAX98357A amp + speaker on the J3 header — see quirks",
+   "note": "Wire a MAX98357A amplifier to J3 BEFORE flashing (35_SDA→LRC, 36_SCL→BCLK, 37_WS→DIN, 39_SD→GAIN, 38_SCK→SD, + GND/3V3). Join Wi-Fi 'Newsheen-Audio' (password meowmeow); the setup page opens itself.",
+   "docs": "https://github.com/RetiaLLC/NewsheenRadio",
+   "src": "https://github.com/RetiaLLC/NewsheenRadio",
+   "builds": [
+    {
+     "file": "newsheen-radio.bin",
+     "label": "Newsheen Radio — directory search, ~1.6 MB",
+     "url": "firmware/newsheen-radio.bin",
+     "addr": 0,
+     "sha256": "d8a57c83f643927dc93a49ae32c4712083c4df1a2314481786b00a19fb359b67"
+    }
+   ]
+  },
+  {
+   "id": "newsheen-radio-catalog",
+   "name": "Newsheen Radio (offline atlas)",
+   "ver": "1.1.0",
+   "desc": "Newsheen Radio with 37,963 stations from 227 countries stored on the puck itself, so the globe and country browser work without any directory service. Every station carries coordinates — spin the world, zoom into a region and the puck loads the stations actually in view. Otherwise identical to Newsheen Radio.",
+   "buildsLine": "~16 MB whole-filesystem image — flashing takes about a minute",
+   "note": "This image is ~16 MB and replaces the whole filesystem, so it also clears any MP3s you uploaded. Same MAX98357A wiring as Newsheen Radio. Flashing takes roughly a minute.",
+   "docs": "https://github.com/RetiaLLC/NewsheenRadio",
+   "src": "https://github.com/RetiaLLC/NewsheenRadio",
+   "builds": [
+    {
+     "file": "newsheen-radio-catalog.bin",
+     "label": "Newsheen Radio + offline atlas — ~16 MB, ~1 min",
+     "url": "firmware/newsheen-radio-catalog.bin",
+     "addr": 0,
+     "sha256": "077a678eb6b49ba11979b990e459cc9de2ef806662a4fc19ecfbd6c09f9f164f"
+    }
+   ]
+  },
+  {
+   "id": "newsheen-meshtastic",
+   "name": "Meshtastic",
+   "ver": "2.7.23",
+   "recommended": true,
+   "desc": "Meshtastic for the Sheen — the ESP32-S3 puck with a Seeed Wio-SX1262 LoRa radio. An incoming mesh text message animates the 8 top LEDs; the lamp glows a node-color at boot. An optional piezo on the buzzer pad beeps on message.",
+   "buildsLine": "set your region in a Meshtastic client — the radio stays off until you do",
+   "note": "Attach a LoRa antenna before transmitting. Set your region in the Meshtastic phone app (Bluetooth) or web client — the radio is OFF until a region is set.",
+   "docs": "https://github.com/RetiaLLC/ScriptkittyMeshtastic",
+   "src": "https://github.com/RetiaLLC/ScriptkittyMeshtastic",
+   "logo": "assets/logo-meshtastic.svg",
+   "builds": [
+    {
+     "file": "newsheen-meshtastic.bin",
+     "label": "Meshtastic — LoRa mesh messenger",
+     "url": "firmware/newsheen-meshtastic.bin",
+     "addr": 0,
+     "sha256": "d07219105433ba1e57432f8f8443680aecd9c9dd6dc9fd7186634c1e71716fce"
+    }
+   ]
+  },
+  {
+   "id": "newsheen-meshcore-ble",
+   "name": "MeshCore Companion (Bluetooth)",
+   "ver": "1.16.0",
+   "recommended": true,
+   "desc": "MeshCore companion for the Sheen — pairs to the MeshCore phone app over Bluetooth (PIN 123456). Incoming mesh messages flash the 8 NeoPixels (and beep an optional piezo). The wireless 'mesh lamp' build.",
+   "buildsLine": "pair over Bluetooth in the MeshCore app (PIN 123456)",
+   "note": "Attach a LoRa antenna before transmitting. Set your region/preset in the app before transmitting.",
+   "docs": "https://github.com/RetiaLLC/MeshCore",
+   "src": "https://github.com/RetiaLLC/MeshCore",
+   "logo": "assets/logo-meshcore.png",
+   "builds": [
+    {
+     "file": "newsheen-meshcore-ble.bin",
+     "label": "MeshCore companion — Bluetooth pairing",
+     "url": "firmware/newsheen-meshcore-ble.bin",
+     "addr": 0,
+     "sha256": "ed00906362989eb56d6fb29c1c2c2c65ddb1d649c2fd8938a282cd133a54f884"
+    }
+   ]
+  },
+  {
+   "id": "newsheen-meshcore-usb",
+   "name": "MeshCore Companion (USB Serial)",
+   "ver": "1.16.0",
+   "desc": "MeshCore companion that connects to the MeshCore web/desktop client over USB serial (Web Serial) — no Bluetooth pairing. Incoming mesh messages flash the 8 NeoPixels when no client is attached. TinyUSB build.",
+   "buildsLine": "connect at client.meshcore.co.uk over Web Serial",
+   "note": "Attach a LoRa antenna before transmitting. Open https://client.meshcore.co.uk and Connect over Serial (USB).",
+   "docs": "https://github.com/RetiaLLC/MeshCore",
+   "src": "https://github.com/RetiaLLC/MeshCore",
+   "logo": "assets/logo-meshcore.png",
+   "builds": [
+    {
+     "file": "newsheen-meshcore-usb.bin",
+     "label": "MeshCore companion — USB serial",
+     "url": "firmware/newsheen-meshcore-usb.bin",
+     "addr": 0,
+     "sha256": "0ec3fda1f87be7bc5899a1d23757629a2c0e73b42b827f147f6e75720aa6e2a4"
+    }
+   ]
+  },
+  {
+   "id": "newsheen-reticulum-rnode",
+   "name": "Reticulum RNode",
+   "ver": "1.85",
+   "desc": "Turns the Sheen into an RNode — a host-controlled 915 MHz LoRa transceiver for the Reticulum network stack (Sideband, MeshChat, NomadNet, rnsd). Headless. This build ships pre-provisioned, so it boots as a ready RNode with no rnodeconf step and no 'device not initialised / firmware corrupt' message.",
+   "buildsLine": "pre-provisioned — boots as a valid RNode, no rnodeconf",
+   "note": "Attach a 915 MHz antenna to the ANT pad before transmitting. Point Sideband, MeshChat, NomadNet, or rnsd at the puck's USB serial port and set your region there.",
+   "docs": "https://github.com/RetiaLLC/RNode_Firmware",
+   "src": "https://github.com/RetiaLLC/RNode_Firmware",
+   "logo": "assets/logo-reticulum.png",
+   "builds": [
+    {
+     "file": "newsheen-reticulum-rnode.bin",
+     "label": "Reticulum RNode — pre-provisioned",
+     "url": "firmware/newsheen-reticulum-rnode.bin",
+     "addr": 0,
+     "sha256": "49045e5b5f71e2a9cc9e4c9e88e5e00f8cade411984910cff5cb09946b54f61a"
+    }
+   ]
+  },
+  {
+   "id": "newsheen-motoko",
+   "mark": "[//]",
+   "name": "Motoko",
+   "ver": "4.0.0",
+   "gate": true,
+   "capabilities": [
+    "Transmit 802.11 frames — beacons, probe responses, and deauth — when driven by a host program",
+    "Capture full-length Wi-Fi frames, whole WPA handshakes, and PMKIDs"
+   ],
+   "desc": "Turns the Sheen into a browser-driven 802.11 'radio pipe' you script live over Web Serial. Sniff and visualize Wi-Fi, or (where authorized) transmit beacons, probe responses, and deauth. Ships INERT — no attack tooling on the device; it only transmits when a host program drives it.",
+   "buildsLine": "drive it from motoko.site over Web Serial",
+   "note": "Ships inert and transmit-capable. Sniff anywhere; transmit ONLY on hardware and networks you own or are explicitly authorized to test — doing otherwise may be illegal.",
+   "docs": "https://github.com/RetiaLLC/motoko-firmware",
+   "src": "https://github.com/RetiaLLC/motoko-firmware",
+   "page": "https://motoko.site",
+   "builds": [
+    {
+     "file": "newsheen-motoko.bin",
+     "label": "Motoko radio pipe — transmit-capable, ships inert",
+     "url": "firmware/newsheen-motoko.bin",
+     "addr": 0,
+     "sha256": "24b22b3c745902ed1dbd385b479385cb9a69e672fd79e58d9132608f40cb4ff6"
+    }
+   ]
+  },
+  {
+   "id": "newsheen-bitpirate",
+   "mark": "[><]",
+   "name": "Bit Pirate",
+   "ver": "1.6",
+   "gate": true,
+   "capabilities": [
+    "Actively drive I²C / SPI / UART / 1-Wire / JTAG buses on attached hardware",
+    "Transmit infrared and transmit/receive on the onboard SX1262 LoRa radio"
+   ],
+   "desc": "The 'Swiss Army knife' hardware-hacking multitool (inspired by the Bus Pirate), on the Sheen. Talk to I²C / SPI / UART / 1-Wire / JTAG chips, blast infrared, drive the 8-LED ring, and sniff or talk LoRa on the onboard SX1262 — all from a CLI over USB or the puck's Wi-Fi web terminal. 26 modes.",
+   "buildsLine": "boots to the 'HIZ>' CLI over USB serial @115200",
+   "note": "Transmit-capable (IR + LoRa TX) and it actively drives attached buses. Attach an antenna before any LoRa TX, and only probe/transmit against hardware you own or are authorized to test.",
+   "docs": "https://github.com/RetiaLLC/ESP32-Bus-Pirate",
+   "src": "https://github.com/RetiaLLC/ESP32-Bus-Pirate",
+   "logo": "assets/logo-bitpirate.png",
+   "builds": [
+    {
+     "file": "newsheen-bitpirate.bin",
+     "label": "Bit Pirate — 26-mode hardware multitool",
+     "url": "firmware/newsheen-bitpirate.bin",
+     "addr": 0,
+     "sha256": "e7db0bfe27d418fdff97bf8ab90d769b2b3a4487e03fbf03a134444253303a24"
+    }
+   ]
+  },
+  {
+   "id": "newsheen-badusb",
+   "mark": "[!]",
+   "name": "Bad Nugget (BadUSB)",
+   "ver": "1.1.0",
+   "gate": true,
+   "capabilities": [
+    "Inject real keystrokes into any computer it is plugged into (DuckyScript payloads)",
+    "Detect the host OS and adapt payloads; drive over Wi-Fi web UI or a BLE remote"
+   ],
+   "desc": "BadUSB keystroke injection (DuckyScript) on the screenless Sheen. No display — the 8-pixel ring is the status output (warm-white idle, red while a payload runs). Drive it over its Wi-Fi web UI (payload editor + upload) or drop .txt payloads on its USB drive. BLE remote + per-device PIN + host-OS detection included.",
+   "buildsLine": "join Wi-Fi 'Newsheen' (password nugget123) to edit/run payloads",
+   "note": "This injects REAL keystrokes into whatever computer it is plugged into. Only use it on computers you own or are explicitly authorized to test.",
+   "docs": "https://github.com/RetiaLLC/USB-Nugget",
+   "src": "https://github.com/RetiaLLC/USB-Nugget",
+   "builds": [
+    {
+     "file": "newsheen-badusb.bin",
+     "label": "Bad Nugget BadUSB — keystroke injection",
+     "url": "firmware/newsheen-badusb.bin",
+     "addr": 0,
+     "sha256": "75cb98eea053bfaf0cf8edfb4f204cf98be47ff18e89d12a6c313012ff26772c"
+    }
+   ]
+  }
+ ]
+}

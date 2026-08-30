@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Newsheen</title>
+<meta name="description" content="Getting started, in-browser flashing, serial monitor and firmware catalog for the Newsheen — the ESP32-S3 cat-lamp puck by Retia LLC. Cat lamp, internet radio, LoRa mesh node, and more.">
+<meta property="og:title" content="Newsheen">
+<meta property="og:description" content="A translucent cat lamp with an ESP32-S3 brain. Flash it, mesh with it, make it glow.">
+<meta property="og:url" content="https://newsheen.site/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='0.9em'%20font-size='90'%3E%F0%9F%98%B8%3C/text%3E%3C/svg%3E">
+<link rel="preload" href="vendor/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="vendor/fonts.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Newsheen hero — the glowing 8-LED ring inside the translucent lamp */
+  @keyframes sheenpulse { 0%,100%{opacity:0.85; transform:scale(1);} 50%{opacity:1; transform:scale(1.04);} }
+  @keyframes sheenspin { to { transform: rotate(360deg); } }
+  .ring-glow { animation: sheenpulse 4.5s ease-in-out infinite; transform-origin:center; }
+  .ring-rot  { animation: sheenspin 34s linear infinite; transform-origin:center; }
+  @media (prefers-reduced-motion: reduce) { .ring-glow, .ring-rot { animation: none; } }
+</style>
+<script type="module" src="vendor/esptool-init.js"></script>
+</head>
+<body>
+<div style="font-family:'Archivo',sans-serif; background:#faf9f5; color:#3c443f; min-height:100vh; font-size:15px; line-height:1.65;">
+
+  <nav style="position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:20px; padding:14px 36px; background:rgba(250,249,245,0.94); backdrop-filter:blur(8px); border-bottom:1px solid #e2ddd0; flex-wrap:wrap;">
+    <a href="#top" class="nav-word" style="font-family:'IBM Plex Mono',monospace; font-weight:600; color:#14181b; font-size:15px; text-decoration:none;">=^..^= <span style="color:#00a35f;">NEWSHEEN</span></a>
+    <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap; font-size:14px; font-weight:600; margin-left:auto;">
+      <a href="https://retia.io" target="_blank" rel="noopener" class="nav-buy">Get one ↗</a>
+      <a href="https://scriptkitty.sh" target="_blank" rel="noopener" class="nav-link">All Retia flashers</a>
+      <a href="https://github.com/skickar/newsheen.site" target="_blank" rel="noopener" class="nav-link">GitHub</a>
+      <a href="#flash" class="btn-dark" style="font-size:13px; padding:9px 18px; border-radius:8px;">[ flash ]</a>
+    </div>
+  </nav>
+
+  <aside class="chapters" aria-label="Chapters">
+    <div class="ch-title">chapters</div>
+    <nav>
+      <a href="#start" data-sec="start"><span class="n">01</span> Start</a>
+      <a href="#flash" data-sec="flash"><span class="n">02</span> Flash</a>
+      <a href="#serial" data-sec="serial"><span class="n">03</span> Serial</a>
+      <a href="#firmware" data-sec="firmware"><span class="n">04</span> Firmware</a>
+      <a href="#hardware" data-sec="hardware"><span class="n">05</span> Hardware</a>
+      <a href="#links" data-sec="links"><span class="n">06</span> Community</a>
+    </nav>
+  </aside>
+
+  <div class="content">
+
+  <header id="top" style="max-width:1140px; margin:0 auto; padding:92px 36px 72px; display:grid; grid-template-columns:1.15fr 1fr; gap:56px; align-items:center;" class="grid-hero">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:18px;">retia@sheen:~$ cat readme.md<span style="display:inline-block; width:8px; height:14px; background:#00a35f; margin-left:6px; vertical-align:-2px; animation:blinkc 1.1s step-end infinite;"></span></div>
+      <h1 style="margin:0 0 10px; font-size:64px; line-height:0.98; color:#14181b; font-weight:900; letter-spacing:-2.5px;">Newsheen</h1>
+      <div style="font-size:22px; font-weight:700; color:#00a35f; margin-bottom:18px; letter-spacing:-0.3px;">A cat lamp with a hacker's brain.</div>
+      <div style="font-size:14px; font-weight:600; color:#14181b; margin-bottom:18px;">By <a href="https://retia.io" target="_blank" rel="noopener">Retia LLC</a>.</div>
+      <p style="margin:0 0 16px; max-width:52ch; font-size:16px;">A translucent silicone cat lamp with an ESP32-S3 puck inside: eight addressable LEDs, a 915&nbsp;MHz LoRa radio, an IR receiver, a microphone header, and native USB-C.</p>
+      <p style="margin:0 0 30px; max-width:52ch; font-size:16px;">One little board, a shelf full of personalities — a music-reactive lamp, an internet radio, a LoRa mesh node, or a pocket hardware-hacking multitool. Pick one and flash it right here in your browser.</p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
+        <a href="#flash" class="btn-dark" style="font-size:15px; padding:15px 28px; border-radius:10px;">[ flash the Sheen ]</a>
+        <a href="https://retia.io" target="_blank" rel="noopener" class="btn-buy" style="font-size:15px; padding:15px 26px; border-radius:10px;">[ get a Sheen ↗ ]</a>
+        <a href="#start" class="btn-outline" style="font-family:'Archivo',sans-serif; font-weight:700; font-size:15px; padding:15px 24px; border-radius:10px;">Getting started</a>
+      </div>
+      <div style="margin-top:24px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#98a09a;">// flashing and the serial monitor run on any browser supporting Web Serial.<br>// made in the USA by real catboys and catgirls.</div>
+    </div>
+    <div style="user-select:none; display:flex; align-items:center; justify-content:center;">
+      <svg viewBox="0 0 400 400" width="100%" style="max-width:420px; aspect-ratio:1/1;" role="img" aria-label="The Newsheen's eight-LED ring glowing in rainbow colors inside the translucent cat lamp">
+        <defs>
+          <radialGradient id="lampbody" cx="50%" cy="46%" r="58%">
+            <stop offset="0%" stop-color="#fffef9"/><stop offset="62%" stop-color="#fbf6ec"/><stop offset="100%" stop-color="#efe7d6"/>
+          </radialGradient>
+          <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
+        </defs>
+        <!-- ambient glow -->
+        <circle class="ring-glow" cx="200" cy="200" r="150" fill="#00a35f" opacity="0.10" filter="url(#soft)"/>
+        <!-- lamp body: a rounded cat silhouette -->
+        <g>
+          <path d="M118 96 C 120 60, 150 66, 152 104 C 176 92, 224 92, 248 104 C 250 66, 280 60, 282 96 C 322 120, 344 168, 344 224 C 344 300, 286 344, 200 344 C 114 344, 56 300, 56 224 C 56 168, 78 120, 118 96 Z" fill="url(#lampbody)" stroke="#e2ddd0" stroke-width="2"/>
+        </g>
+        <!-- the 8-LED ring -->
+        <g class="ring-rot">
+          <g class="ring-glow">
+          <!-- glow halos -->
+          <g filter="url(#soft)" opacity="0.9">
+            <circle cx="200" cy="132" r="15" fill="#e40303"/>
+            <circle cx="248" cy="152" r="15" fill="#ff8c00"/>
+            <circle cx="268" cy="200" r="15" fill="#ffed00"/>
+            <circle cx="248" cy="248" r="15" fill="#33d17a"/>
+            <circle cx="200" cy="268" r="15" fill="#008026"/>
+            <circle cx="152" cy="248" r="15" fill="#0092ff"/>
+            <circle cx="132" cy="200" r="15" fill="#004dff"/>
+            <circle cx="152" cy="152" r="15" fill="#750787"/>
+          </g>
+          <!-- LED dots -->
+          <g stroke="#fff" stroke-width="2">
+            <circle cx="200" cy="132" r="9" fill="#e40303"/>
+            <circle cx="248" cy="152" r="9" fill="#ff8c00"/>
+            <circle cx="268" cy="200" r="9" fill="#ffed00"/>
+            <circle cx="248" cy="248" r="9" fill="#33d17a"/>
+            <circle cx="200" cy="268" r="9" fill="#008026"/>
+            <circle cx="152" cy="248" r="9" fill="#0092ff"/>
+            <circle cx="132" cy="200" r="9" fill="#004dff"/>
+            <circle cx="152" cy="152" r="9" fill="#750787"/>
+          </g>
+          </g>
+        </g>
+        <!-- cat face hint -->
+        <g fill="#c9c1ad" opacity="0.8">
+          <circle cx="176" cy="205" r="5"/><circle cx="224" cy="205" r="5"/>
+          <path d="M192 220 q8 7 16 0" fill="none" stroke="#c9c1ad" stroke-width="3" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
+  </header>
+
+  <section id="start" style="border-top:1px solid #e2ddd0;">
+    <div style="max-width:1140px; margin:0 auto; padding:80px 36px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">[01] // getting_started</div>
+      <h2 style="margin:0 0 14px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">From box to glowing in four steps</h2>
+      <p style="margin:0 0 44px; max-width:62ch; font-size:16px;">Your Sheen ships as a blank ESP32-S3. Give it a personality and it wakes up.</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;" class="grid-2col">
+        <ol style="list-style:none; margin:0; padding:0; display:grid; gap:26px;">
+          <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">01</span>
+            <span><strong style="color:#14181b; font-size:16px;">Plug into USB-C.</strong><br>The S3's native USB shows up as a serial port — no drivers. macOS: <code class="chip">/dev/cu.usbmodem*</code>, Linux: <code class="chip">/dev/ttyACM0</code>, Windows: <code class="chip">COMx</code>.</span>
+          </li>
+          <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">02</span>
+            <span><strong style="color:#14181b; font-size:16px;">Antenna first (for the radio builds).</strong><br>Meshtastic, MeshCore, RNode and Bit Pirate drive the onboard SX1262. Attach a 915&nbsp;MHz antenna <em style="color:#c77d00;">before</em> transmitting — RX is safe, but TX into nothing can cook the radio.</span>
+          </li>
+          <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">03</span>
+            <span><strong style="color:#14181b; font-size:16px;">Flash a personality.</strong><br>Pick an image <a href="#flash">from the flasher below</a> and let it write. Every build is a complete <code class="chip">.bin</code> at offset 0x0, verified against a published hash before it touches your board.</span>
+          </li>
+          <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
+            <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">04</span>
+            <span><strong style="color:#14181b; font-size:16px;">Set it up over Wi-Fi.</strong><br>Most builds raise their own Wi-Fi AP with a setup page — WLEDkitty at <code class="chip">http://4.3.2.1</code>, Newsheen Radio at its own captive page. Mesh builds pair to a phone app instead.</span>
+          </li>
+        </ol>
+        <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:28px 30px; align-self:start;">
+          <div style="font-family:'IBM Plex Mono',monospace; color:#d6008f; font-weight:600; font-size:14px; margin-bottom:18px;">!! Sheen quirks worth knowing</div>
+          <ol style="margin:0; padding-left:20px; display:grid; gap:16px; font-size:14px;">
+            <li><strong style="color:#14181b;">Running on a battery?</strong> The puck's 3.3&nbsp;V rail wants a real 5&nbsp;V feed, so a bare LiPo browns it out. Use a charge-and-boost board into the <code class="chip">N-EXT</code> pad and bridge <code class="chip">JP1</code> — details in <a href="#hardware">Hardware</a>.</li>
+            <li><strong style="color:#14181b;">The audio builds need an amp.</strong> Newsheen Radio is silent until you wire a MAX98357A to the J3 header. The mesh and lamp builds need nothing extra.</li>
+            <li><strong style="color:#14181b;">Stuck flashing?</strong> The native-USB S3 can sit in download mode — unplug and replug, then hit CONNECT again.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="flash" style="border-top:1px solid #e2ddd0; background:#f2efe7;">
+    <div style="max-width:1140px; margin:0 auto; padding:80px 36px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">[02] // flash_the_sheen</div>
+      <h2 style="margin:0 0 14px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">Give your cat a personality</h2>
+      <p style="margin:0 0 44px; max-width:64ch; font-size:16px;">Flashing happens in your browser over Web Serial — every image is a complete <code class="chip chip-band">.bin</code> written at offset 0x0. Close any open serial monitors first (one client per port), plug the Sheen in, and pick a build.</p>
+      <div style="display:grid; grid-template-columns:1fr 1.1fr; gap:36px; align-items:start;" class="grid-2col">
+        <div style="display:grid; gap:18px;">
+          <label style="display:grid; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#98a09a;">select firmware
+            <select id="fw-select" style="background:#fff; color:#14181b; border:1px solid #d5cfc0; border-radius:9px; padding:12px 14px; font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:600;"></select>
+          </label>
+          <div id="fw-desc" style="font-size:14px;">loading catalog…</div>
+          <div id="fw-note" style="display:none; font-size:13px; color:#8a5a00; border-left:3px solid #c77d00; padding-left:14px;"></div>
+          <div id="fw-builds" style="display:none; gap:8px;">
+            <div style="font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#98a09a;">select build</div>
+            <div id="fw-build-rows" style="display:grid; gap:8px;"></div>
+          </div>
+          <div id="fw-nobuild" style="display:none; font-size:14px; border:2px dashed #d5cfc0; border-radius:10px; padding:16px 18px; background:#fff;">No hosted image for this one — grab the .bin from the <a id="fw-page" href="#" target="_blank" rel="noopener">release page</a>, then use <strong style="color:#14181b;">FLASH LOCAL .BIN</strong> below.</div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
+            <button id="btn-flash" class="btn-dark" style="border:none; font-size:14px; padding:15px 26px; border-radius:10px; cursor:pointer;">[ CONNECT &amp; FLASH ]</button>
+            <button id="btn-local" class="btn-outline" style="background:transparent; font-size:14px; padding:13px 22px; border-radius:10px; cursor:pointer;">[ FLASH LOCAL .BIN ]</button>
+            <input type="file" accept=".bin" id="fw-file" style="display:none;">
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#98a09a; line-height:1.7;">stuck? the native-USB S3 sometimes waits in download mode — <span style="color:#14181b; font-weight:600;">unplug and replug</span> the Sheen, then hit CONNECT again.<br>bins mirrored from <a href="https://scriptkitty.sh" target="_blank" rel="noopener">scriptkitty.sh</a>; each is verified against its hash before writing.</div>
+        </div>
+        <div style="border-radius:14px; background:#0c1310; box-shadow:0 20px 50px -18px rgba(20,24,27,0.4); overflow:hidden;">
+          <div style="display:flex; align-items:center; gap:8px; padding:10px 16px; border-bottom:1px solid #1c2a24; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#5a7a68;">
+            <span style="width:9px; height:9px; border-radius:50%; background:#ff5566;"></span>
+            <span style="width:9px; height:9px; border-radius:50%; background:#ffb454;"></span>
+            <span style="width:9px; height:9px; border-radius:50%; background:#3dffa0;"></span>
+            <span style="margin-left:8px;">flash_log</span>
+            <span id="flash-progress" style="margin-left:auto; color:#3dffa0;"></span>
+          </div>
+          <div style="position:relative;">
+            <pre id="flash-log" style="margin:0; padding:16px 18px; height:340px; overflow:auto; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.65; color:#8fb8a3; white-space:pre-wrap; word-break:break-word;">// flasher idle — pick a build, plug the Sheen in, hit CONNECT
+// tip: close other serial monitors first. one client per port.</pre>
+            <div style="position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="serial" style="border-top:1px solid #e2ddd0;">
+    <div style="max-width:1140px; margin:0 auto; padding:80px 36px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">[03] // serial_monitor</div>
+      <h2 style="margin:0 0 14px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">Talk to your cat</h2>
+      <p style="margin:0 0 36px; font-size:16px;">Bit Pirate and the RNode/CLI builds speak over serial at 115200 baud. Click connect, pick the Sheen, and you're in.</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:16px;">
+        <select id="ser-baud" style="background:#fff; color:#14181b; border:1px solid #d5cfc0; border-radius:9px; padding:11px 14px; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600;">
+          <option value="115200">115200 baud</option>
+          <option value="460800">460800 baud</option>
+          <option value="921600">921600 baud</option>
+          <option value="1000000">1000000 baud</option>
+        </select>
+        <button id="btn-ser" class="btn-dark" style="border:none; font-size:13px; padding:12px 22px; border-radius:9px; cursor:pointer;">[ CONNECT ]</button>
+        <button id="btn-ser-clear" class="btn-ghost" style="background:transparent; font-size:13px; padding:10px 20px; border-radius:9px; cursor:pointer;">[ CLEAR ]</button>
+      </div>
+      <div style="border-radius:14px; background:#0c1310; box-shadow:0 20px 50px -18px rgba(20,24,27,0.4); overflow:hidden;">
+        <div style="position:relative;">
+          <pre id="ser-log" style="margin:0; padding:16px 18px; height:300px; overflow:auto; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.65; color:#8fb8a3; white-space:pre-wrap; word-break:break-word;">// serial monitor idle — plug a Sheen in and hit CONNECT</pre>
+          <div style="position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px);"></div>
+        </div>
+        <div style="display:flex; border-top:1px solid #1c2a24;">
+          <span style="padding:12px 0 12px 18px; color:#3dffa0; font-family:'IBM Plex Mono',monospace;">&gt;</span>
+          <input id="ser-in" placeholder="type a command, hit enter to send" style="flex:1; background:transparent; border:none; outline:none; color:#d7ffe9; font-family:'IBM Plex Mono',monospace; font-size:13px; padding:12px 12px;">
+          <button id="btn-ser-send" class="ser-send" style="background:transparent; border:none; border-left:1px solid #1c2a24; color:#3dffa0; padding:12px 20px; font-family:'IBM Plex Mono',monospace; font-size:13px; cursor:pointer;">[ SEND ]</button>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; margin-top:26px; font-size:13.5px;" class="grid-3col">
+        <div style="background:#fff; border:1px solid #e2ddd0; border-radius:12px; padding:20px 22px;">
+          <div style="font-family:'IBM Plex Mono',monospace; color:#00a35f; margin-bottom:8px; font-size:13px;">// bit pirate</div>
+          Boots to the <code class="chip chip-sm">HIZ&gt;</code> prompt. Type <code class="chip chip-sm">help</code> for the 26 modes, or <code class="chip chip-sm">led</code> to light the ring from the CLI.
+        </div>
+        <div style="background:#fff; border:1px solid #e2ddd0; border-radius:12px; padding:20px 22px;">
+          <div style="font-family:'IBM Plex Mono',monospace; color:#00a35f; margin-bottom:8px; font-size:13px;">// meshtastic note</div>
+          USB carries the protobuf client API, not a text log — use the phone app or <code class="chip chip-sm">meshtastic --port PORT --info</code>.
+        </div>
+        <div style="background:#fff; border:1px solid #e2ddd0; border-radius:12px; padding:20px 22px;">
+          <div style="font-family:'IBM Plex Mono',monospace; color:#00a35f; margin-bottom:8px; font-size:13px;">// rnode status</div>
+          The pre-provisioned RNode answers <code class="chip chip-sm">rnodeconf --info PORT</code> straight away — no setup step.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="firmware" style="border-top:1px solid #e2ddd0; background:#f2efe7;">
+    <div style="max-width:1140px; margin:0 auto; padding:80px 36px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">[04] // firmware_catalog</div>
+      <h2 style="margin:0 0 14px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">Ten lives, one puck</h2>
+      <p style="margin:0 0 40px; max-width:64ch; font-size:16px;">Every image is mirrored from <a href="https://scriptkitty.sh" target="_blank" rel="noopener">scriptkitty.sh</a> and pinned to a hash the flasher checks before writing. Hit <strong style="color:#14181b;">flash</strong> to load one into the flasher above. The last three are transmit- and attack-capable and ask you to confirm authorization first.</p>
+      <div id="catalog" style="border-top:1px solid #d5cfc0;"></div>
+      <div style="font-size:14px; margin-top:24px;">The Sheen is the ESP32-S3 Pusheen puck (<code class="chip">esp32_base_puck_v2</code>). Each build's <a href="https://github.com/RetiaLLC" target="_blank" rel="noopener">source repo</a> has its own PlatformIO project with the board definition if you want to roll your own.</div>
+    </div>
+  </section>
+
+  <section id="hardware" style="border-top:1px solid #e2ddd0;">
+    <div style="max-width:1140px; margin:0 auto; padding:80px 36px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">[05] // hardware_and_pinout</div>
+      <h2 style="margin:0 0 44px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">Tech specs</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:start; margin-bottom:48px;" class="grid-2col">
+        <div style="display:grid; gap:11px; font-size:13.5px;">
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">MCU</span><span><strong style="color:#14181b;">ESP32-S3-WROOM-1</strong> — dual-core 240 MHz · WiFi + BLE · 16 MB flash · 2 MB PSRAM · native USB-C</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">LEDS</span><span><strong style="color:#14181b;">8× WS2812B ring</strong> — top-facing, through a translucent silicone cat lamp · GPIO 16</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">RADIO</span><span><strong style="color:#14181b;">Seeed Wio-SX1262 LoRa</strong> — 915 MHz · wire-antenna pad · SX126x drivers</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">IR</span><span><strong style="color:#14181b;">IR receiver</strong> — GPIO 4 · works with the bundled 21-key remote in WLEDkitty</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">AUDIO</span><span><strong style="color:#14181b;">I²S header (J3)</strong> — mic in, or a MAX98357A amp out for Newsheen Radio</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">INPUT</span><span><strong style="color:#14181b;">User button</strong> — GPIO 17, active-low · BOOT on GPIO 0</span></div>
+          <div style="display:grid; grid-template-columns:104px 1fr; gap:14px;"><span class="spec-k">POWER</span><span><strong style="color:#14181b;">USB-C, or 5 V external</strong> — via the N-EXT pad + JP1 bridge (see below)</span></div>
+        </div>
+        <div style="border-radius:14px; background:#0c1310; overflow:hidden; box-shadow:0 20px 50px -18px rgba(20,24,27,0.4);">
+          <div style="display:flex; align-items:center; gap:8px; padding:10px 16px; border-bottom:1px solid #1c2a24; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#5a7a68;">
+            <span style="width:9px; height:9px; border-radius:50%; background:#ff5566;"></span>
+            <span style="width:9px; height:9px; border-radius:50%; background:#ffb454;"></span>
+            <span style="width:9px; height:9px; border-radius:50%; background:#3dffa0;"></span>
+            <span style="margin-left:8px;">$ cat pinout.map — the ones you'll reach for</span>
+          </div>
+          <pre style="margin:0; padding:18px 20px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.75; color:#8fb8a3; overflow:auto;">neopixel  8× WS2812B ring ── GPIO 16
+button    user (SW3) ─────── GPIO 17   BOOT ── GPIO 0
+ir rx     receiver ───────── GPIO 4
+i2c/mic   SDA 35 · SCL 36    I²S WS 37 · SCK 38 · SD 39  (J3)
+lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
+          RESET 9 · BUSY 47 · DIO1 21 · RF_SW 14
+usb       native S3 ──────── D- 19 · D+ 20
+power     N-EXT pad + JP1 bridge for 5 V external</pre>
+        </div>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:36px; align-items:start;">
+        <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:24px 28px;">
+          <div style="font-family:'IBM Plex Mono',monospace; color:#c77d00; font-size:13px; font-weight:600; margin-bottom:10px;">!! running it on a battery</div>
+          <p style="margin:0 0 12px; font-size:14px;">The 3.3&nbsp;V rail comes from an AMS1117 fed by the board's 5&nbsp;V bus, which drops about 1.1&nbsp;V. Feed it a bare 3.7&nbsp;V LiPo and the ESP32-S3 browns out everywhere except near full charge.</p>
+          <p style="margin:0 0 12px; font-size:14px;">Run the cell through a charge-and-boost board set to 5&nbsp;V: its output to the corner <code class="chip">N-EXT</code> pad and a <code class="chip">GND</code> pad, then bridge the <code class="chip">JP1</code> jumper beside it — the silk reads <code class="chip">SOLDER JP1 FOR EXT PWR</code>. Charge through the boost board's own USB, not the Sheen's.</p>
+          <div style="font-size:13px; color:#98a09a;">A wiring diagram and part picks live in the build notes — ask in the <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener">Discord</a>.</div>
+        </div>
+        <div>
+          <h3 style="margin:0 0 10px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">The shell &amp; case files</h3>
+          <p style="margin:0 0 14px; max-width:52ch; font-size:15px;">The puck lives inside the translucent silicone Pusheen lamp. Printable mounts, the board outline, and a 3D model are on the way here — the same case kit the badge site ships.</p>
+          <div style="border:2px dashed #d5cfc0; border-radius:10px; padding:16px 18px; background:#faf9f5; font-family:'IBM Plex Mono',monospace; font-size:13px; color:#98a09a;">// case + board CAD — coming soon</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="links" style="border-top:1px solid #e2ddd0; background:#14181b;">
+    <div style="max-width:1140px; margin:0 auto; padding:80px 36px 48px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#3dffa0; margin-bottom:10px;">[06] // community_and_links</div>
+      <h2 style="margin:0 0 36px; font-size:44px; color:#faf9f5; font-weight:800; letter-spacing:-1.5px;">Join the litter</h2>
+      <div style="display:grid; gap:14px; font-size:15px; color:#9aa5a0;">
+        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://retia.io" target="_blank" rel="noopener" class="link-lit">get your own Sheen</a> — the Newsheen cat-lamp puck on the Retia store</div>
+        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://scriptkitty.sh" target="_blank" rel="noopener" class="link-lit">scriptkitty.sh</a> — Retia's browser flasher for the whole hardware family</div>
+        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://catbadge.online" target="_blank" rel="noopener" class="link-lit">catbadge.online</a> — the same treatment for the ScriptKitty DEF CON badge</div>
+        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://github.com/RetiaLLC/WLEDkitty" target="_blank" rel="noopener" class="link-lit">WLEDkitty</a> · <a href="https://github.com/RetiaLLC/NewsheenRadio" target="_blank" rel="noopener" class="link-lit">NewsheenRadio</a> · <a href="https://github.com/RetiaLLC/MeshCore" target="_blank" rel="noopener" class="link-lit">MeshCore</a> — firmware sources</div>
+        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://github.com/skickar/newsheen.site" target="_blank" rel="noopener" class="link-lit">github.com/skickar/newsheen.site</a> — this site's source</div>
+        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener" class="link-lit">Retia Discord server</a> — come hang with the litter</div>
+      </div>
+      <footer style="margin-top:64px; padding-top:24px; border-top:1px solid #2a322d; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#5a655f; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <span># the Newsheen — by <a href="https://retia.io" target="_blank" rel="noopener" class="link-static">Retia LLC</a><br># made in the USA by real catboys and catgirls, with ♥ and whiskers</span>
+        <span>$ echo "stay curious, stay pawsitive" &amp;&amp; exit 0</span>
+      </footer>
+    </div>
+  </section>
+  </div><!-- /.content -->
+</div>
+<script src="app.js"></script>
+</body>
+</html>
