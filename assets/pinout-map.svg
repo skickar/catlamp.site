@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 1250" font-family="IBM Plex Mono, monospace">
+<rect width="1040" height="1250" fill="none"/>
+<text x="520" y="79" text-anchor="middle" font-size="20" font-weight="700" fill="#14181b">FRONT · top — LEDs, buttons, sensors</text>
+<circle cx="520" cy="315" r="180" fill="#1d6e43" stroke="#0d4227" stroke-width="3"/>
+<circle cx="520" cy="135" r="12" fill="#faf9f5"/>
+<circle cx="520" cy="495" r="12" fill="#faf9f5"/>
+<circle cx="369.5" cy="317.0" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="413.6" cy="210.6" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="520.0" cy="166.4" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="626.4" cy="210.6" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="670.5" cy="317.0" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="626.4" cy="423.3" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="520.0" cy="474.1" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="413.6" cy="423.3" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="520.0" cy="166.4" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="475.8" cy="181.1" r="5.5" fill="#b06a24" stroke="#fff" stroke-width="1.5"/>
+<circle cx="390.4" cy="370.6" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="390.4" cy="263.3" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="563.0" cy="415.1" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="636.4" cy="366.8" r="5.5" fill="#b06a24" stroke="#fff" stroke-width="1.5"/>
+<path d="M520.0,166.4 L777.0,158.3 L795.0,158.3" fill="none" stroke="#0a8a52" stroke-width="1.4" opacity="0.7"/>
+<circle cx="795.0" cy="158.3" r="2.6" fill="#0a8a52"/>
+<text x="795.0" y="151.3" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">8x WS2812B ring</text>
+<text x="795.0" y="166.3" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">GPIO 16 - stock</text>
+<path d="M475.8,181.1 L263.0,158.3 L245.0,158.3" fill="none" stroke="#b06a24" stroke-width="1.4" opacity="0.7"/>
+<circle cx="245.0" cy="158.3" r="2.6" fill="#b06a24"/>
+<text x="245.0" y="151.3" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">IR receiver (VS1838B)</text>
+<text x="245.0" y="166.3" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">GPIO 4 - add-on</text>
+<path d="M390.4,370.6 L263.0,471.7 L245.0,471.7" fill="none" stroke="#0a8a52" stroke-width="1.4" opacity="0.7"/>
+<circle cx="245.0" cy="471.7" r="2.6" fill="#0a8a52"/>
+<text x="245.0" y="464.7" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">BOOT button</text>
+<text x="245.0" y="479.7" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">GPIO 0</text>
+<path d="M390.4,263.3 L263.0,315.0 L245.0,315.0" fill="none" stroke="#0a8a52" stroke-width="1.4" opacity="0.7"/>
+<circle cx="245.0" cy="315.0" r="2.6" fill="#0a8a52"/>
+<text x="245.0" y="315.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">EN / reset</text>
+<path d="M563.0,415.1 L777.0,471.7 L795.0,471.7" fill="none" stroke="#0a8a52" stroke-width="1.4" opacity="0.7"/>
+<circle cx="795.0" cy="471.7" r="2.6" fill="#0a8a52"/>
+<text x="795.0" y="464.7" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">status LED</text>
+<text x="795.0" y="479.7" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">GPIO 48</text>
+<path d="M636.4,366.8 L777.0,315.0 L795.0,315.0" fill="none" stroke="#b06a24" stroke-width="1.4" opacity="0.7"/>
+<circle cx="795.0" cy="315.0" r="2.6" fill="#b06a24"/>
+<text x="795.0" y="308.0" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">sensor header J3</text>
+<text x="795.0" y="323.0" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">I2C 35/36 - I2S 37/38/39</text>
+<text x="520" y="301" text-anchor="middle" font-size="13" font-weight="700" fill="#cfe8d8">ESP32-S3</text>
+<text x="520" y="319" text-anchor="middle" font-size="11" fill="#cfe8d8">WROOM-1 · N16R2</text>
+<text x="520" y="336" text-anchor="middle" font-size="11" fill="#cfe8d8">16MB / 2MB PSRAM</text>
+<text x="520" y="649" text-anchor="middle" font-size="20" font-weight="700" fill="#14181b">BACK · bottom — power, USB &amp; button</text>
+<circle cx="520" cy="885" r="180" fill="#1d6e43" stroke="#0d4227" stroke-width="3"/>
+<circle cx="520" cy="705" r="12" fill="#faf9f5"/>
+<circle cx="520" cy="1065" r="12" fill="#faf9f5"/>
+<circle cx="520.0" cy="734.5" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="520.0" cy="1027.7" r="5.5" fill="#0a8a52" stroke="#fff" stroke-width="1.5"/>
+<circle cx="366.8" cy="831.3" r="5.5" fill="#2b6cb0" stroke="#fff" stroke-width="1.5"/>
+<circle cx="359.6" cy="858.8" r="5.5" fill="#2b6cb0" stroke="#fff" stroke-width="1.5"/>
+<circle cx="359.6" cy="915.1" r="5.5" fill="#2b6cb0" stroke="#fff" stroke-width="1.5"/>
+<circle cx="405.5" cy="1002.2" r="5.5" fill="#2b6cb0" stroke="#fff" stroke-width="1.5"/>
+<circle cx="461.1" cy="951.1" r="5.5" fill="#2b6cb0" stroke="#fff" stroke-width="1.5"/>
+<circle cx="611.6" cy="978.6" r="5.5" fill="#b06a24" stroke="#fff" stroke-width="1.5"/>
+<path d="M520.0,734.5 L777.0,728.3 L795.0,728.3" fill="none" stroke="#0a8a52" stroke-width="1.4" opacity="0.7"/>
+<circle cx="795.0" cy="728.3" r="2.6" fill="#0a8a52"/>
+<text x="795.0" y="721.3" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">user button</text>
+<text x="795.0" y="736.3" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">GPIO 17 - stock</text>
+<path d="M520.0,1027.7 L777.0,1041.7 L795.0,1041.7" fill="none" stroke="#0a8a52" stroke-width="1.4" opacity="0.7"/>
+<circle cx="795.0" cy="1041.7" r="2.6" fill="#0a8a52"/>
+<text x="795.0" y="1034.7" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">USB-C (native)</text>
+<text x="795.0" y="1049.7" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">D- 19 / D+ 20</text>
+<path d="M366.8,831.3 L263.0,697.0 L245.0,697.0" fill="none" stroke="#2b6cb0" stroke-width="1.4" opacity="0.7"/>
+<circle cx="245.0" cy="697.0" r="2.6" fill="#2b6cb0"/>
+<text x="245.0" y="690.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">01 BATT_VOLT</text>
+<text x="245.0" y="705.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">GPIO 1 sense</text>
+<path d="M359.6,858.8 L263.0,791.0 L245.0,791.0" fill="none" stroke="#2b6cb0" stroke-width="1.4" opacity="0.7"/>
+<circle cx="245.0" cy="791.0" r="2.6" fill="#2b6cb0"/>
+<text x="245.0" y="784.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">02 CHG_CNTRL</text>
+<text x="245.0" y="799.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">GPIO 2</text>
+<path d="M359.6,915.1 L263.0,885.0 L245.0,885.0" fill="none" stroke="#2b6cb0" stroke-width="1.4" opacity="0.7"/>
+<circle cx="245.0" cy="885.0" r="2.6" fill="#2b6cb0"/>
+<text x="245.0" y="878.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">3V3 out</text>
+<text x="245.0" y="893.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">never feed 5V here</text>
+<path d="M405.5,1002.2 L263.0,1073.0 L245.0,1073.0" fill="none" stroke="#2b6cb0" stroke-width="1.4" opacity="0.7"/>
+<circle cx="245.0" cy="1073.0" r="2.6" fill="#2b6cb0"/>
+<text x="245.0" y="1066.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">N-EXT · +5V in</text>
+<text x="245.0" y="1081.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">bridge JP1 for ext power</text>
+<path d="M461.1,951.1 L263.0,979.0 L245.0,979.0" fill="none" stroke="#2b6cb0" stroke-width="1.4" opacity="0.7"/>
+<circle cx="245.0" cy="979.0" r="2.6" fill="#2b6cb0"/>
+<text x="245.0" y="972.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">3V3 regulator</text>
+<text x="245.0" y="987.0" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">AMS1117</text>
+<path d="M611.6,978.6 L777.0,885.0 L795.0,885.0" fill="none" stroke="#b06a24" stroke-width="1.4" opacity="0.7"/>
+<circle cx="795.0" cy="885.0" r="2.6" fill="#b06a24"/>
+<text x="795.0" y="878.0" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" font-weight="700" fill="#14181b">LoRa SX1262</text>
+<text x="795.0" y="893.0" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="11.5" font-weight="400" fill="#5d6659">add-on (unpopulated)</text>
+<text x="520" y="887" text-anchor="middle" font-size="11" fill="#cfe8d8">(mirrored — bottom view)</text>
+<g transform="translate(250,1216)" font-size="13.5">
+<circle cx="0" cy="-4" r="6" fill="#0a8a52"/><text x="14" y="0" fill="#14181b">stock</text>
+<circle cx="190" cy="-4" r="6" fill="#b06a24"/><text x="204" y="0" fill="#14181b">add-on footprint</text>
+<circle cx="380" cy="-4" r="6" fill="#2b6cb0"/><text x="394" y="0" fill="#14181b">power / battery</text>
+</g>
+</svg>

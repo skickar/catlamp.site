@@ -5,10 +5,11 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Newsheen</title>
-<meta name="description" content="Getting started, in-browser flashing, serial monitor and firmware catalog for the Newsheen — the ESP32-S3 cat-lamp puck by Retia LLC. Cat lamp, internet radio, LoRa mesh node, and more.">
+<meta name="description" content="A cute cat lamp with an upgradable hacker brain — build, hack, and make your own cute custom IoT devices. Getting started, in-browser flashing, and the firmware catalog for the Newsheen ESP32-S3 puck by Retia LLC.">
 <meta property="og:title" content="Newsheen">
-<meta property="og:description" content="A translucent cat lamp with an ESP32-S3 brain. Flash it, mesh with it, make it glow.">
+<meta property="og:description" content="A cute cat lamp with an upgradable hacker brain — build, hack, and make your own cute custom IoT devices.">
 <meta property="og:url" content="https://catlamp.site/">
+<meta property="og:image" content="https://www.catlamp.site/assets/puck-top.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='0.9em'%20font-size='90'%3E%F0%9F%98%B8%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="vendor/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="vendor/fonts.css">
@@ -54,10 +55,10 @@
     <div>
       <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:18px;">retia@sheen:~$ cat readme.md<span style="display:inline-block; width:8px; height:14px; background:#00a35f; margin-left:6px; vertical-align:-2px; animation:blinkc 1.1s step-end infinite;"></span></div>
       <h1 style="margin:0 0 10px; font-size:64px; line-height:0.98; color:#14181b; font-weight:900; letter-spacing:-2.5px;">Newsheen</h1>
-      <div style="font-size:22px; font-weight:700; color:#00a35f; margin-bottom:18px; letter-spacing:-0.3px;">A cat lamp with a hacker's brain.</div>
+      <div style="font-size:22px; font-weight:700; color:#00a35f; margin-bottom:18px; letter-spacing:-0.3px;">A cute cat lamp with an upgradable hacker brain.</div>
       <div style="font-size:14px; font-weight:600; color:#14181b; margin-bottom:18px;">By <a href="https://retia.io" target="_blank" rel="noopener">Retia LLC</a>.</div>
       <p style="margin:0 0 16px; max-width:52ch; font-size:16px;">A translucent silicone cat lamp with an ESP32-S3 puck inside: eight addressable LEDs, a button, and native USB-C. Add a 915&nbsp;MHz LoRa radio, an IR receiver, or a microphone through the onboard headers to grow what it does.</p>
-      <p style="margin:0 0 30px; max-width:52ch; font-size:16px;">One little board, a shelf full of personalities — a music-reactive lamp, an internet radio, a LoRa mesh node, or a pocket hardware-hacking multitool. Pick one and flash it right here in your browser.</p>
+      <p style="margin:0 0 30px; max-width:52ch; font-size:16px;">One little board, a shelf full of personalities — a music-reactive lamp, an internet radio, a LoRa mesh node, a pocket hardware-hacking multitool, or the base for your own cute custom IoT build. Pick one and flash it right here in your browser.</p>
       <div style="display:flex; gap:14px; flex-wrap:wrap; align-items:center;">
         <a href="#flash" class="btn-dark" style="font-size:15px; padding:15px 28px; border-radius:10px;">[ flash the Sheen ]</a>
         <a href="https://retia.io" target="_blank" rel="noopener" class="btn-buy" style="font-size:15px; padding:15px 26px; border-radius:10px;">[ get a Sheen ↗ ]</a>
@@ -283,6 +284,25 @@ lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
         </div>
       </div>
 
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:8px 0 40px;" class="grid-2col">
+        <figure style="margin:0; background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:18px;">
+          <img src="assets/puck-top.png" alt="Top render of the Newsheen board — eight WS2812B LEDs around the edge, the ESP32-S3 in the center, the sensor header and buttons" style="width:100%; display:block;">
+          <figcaption style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#98a09a; margin-top:10px; text-align:center;">front — rendered from the KiCad board (radio shown unpopulated, as it ships)</figcaption>
+        </figure>
+        <figure style="margin:0; background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:18px;">
+          <img src="assets/puck-bottom.png" alt="Bottom render of the Newsheen board — USB-C, the solder-pad power interface, JP1, and the 3V3 regulator" style="width:100%; display:block;">
+          <figcaption style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#98a09a; margin-top:10px; text-align:center;">back — USB-C, the power pads, and JP1</figcaption>
+        </figure>
+      </div>
+
+      <div style="margin:0 0 48px;">
+        <h3 style="margin:0 0 6px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">Pinout map</h3>
+        <p style="margin:0 0 16px; max-width:64ch; font-size:15px;">Generated straight from the KiCad board. Green is stock, amber is an add-on footprint you populate, blue is power and battery.</p>
+        <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:22px; overflow-x:auto;">
+          <img src="assets/pinout-map.svg" alt="Newsheen pinout map, front and back — each GPIO and pad labeled by function, color-coded stock / add-on / power" style="width:100%; max-width:860px; display:block; margin:0 auto;">
+        </div>
+      </div>
+
       <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:36px; align-items:start;">
         <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:24px 28px;">
           <div style="font-family:'IBM Plex Mono',monospace; color:#c77d00; font-size:13px; font-weight:600; margin-bottom:10px;">!! running it on a battery</div>
@@ -293,7 +313,7 @@ lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
         <div>
           <h3 style="margin:0 0 10px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">The shell &amp; case files</h3>
           <p style="margin:0 0 14px; max-width:52ch; font-size:15px;">The puck sits in a 3D-printed base under the translucent silicone lamp. The printable base, button, and retaining ring (v4), plus board STLs and the pinout, live in the Newsheen repo.</p>
-          <img src="assets/newsheen-board-top.png" alt="Top-down render of the Newsheen ESP32-S3 controller board" style="width:100%; max-width:280px; border-radius:12px; border:1px solid #e2ddd0; margin-bottom:14px;">
+          <img src="assets/puck-persp.png" alt="Perspective render of the Newsheen ESP32-S3 controller board" style="width:100%; max-width:280px; border-radius:12px; border:1px solid #e2ddd0; margin-bottom:14px;">
           <div style="font-size:14px; line-height:1.9;">→ <a href="https://github.com/RetiaLLC/Newsheen/tree/main/hardware/3d" target="_blank" rel="noopener">hardware/3d</a> — printed base + button + retaining ring + board STLs<br>
           → <a href="https://github.com/RetiaLLC/Newsheen/blob/main/hardware/pinout.md" target="_blank" rel="noopener">hardware/pinout.md</a> — full GPIO map + build notes<br>
           → <a href="https://github.com/RetiaLLC/Newsheen/releases/tag/v1.0.0" target="_blank" rel="noopener">Newsheen v1.0.0 release</a> — ready-to-flash factory bins</div>
