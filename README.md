@@ -1,4 +1,4 @@
-# newsheen.site
+# catlamp.site
 
 Getting-started + in-browser flasher for the **Newsheen** — the ESP32-S3 "Pusheen puck"
 (`esp32_base_puck_v2`) that lives inside Retia's translucent silicone cat lamp.
