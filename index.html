@@ -295,12 +295,17 @@ lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
         </figure>
       </div>
 
-      <div style="margin:0 0 48px;">
-        <h3 style="margin:0 0 6px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">Pinout map</h3>
-        <p style="margin:0 0 16px; max-width:64ch; font-size:15px;">Generated straight from the KiCad board. Green is stock, amber is an add-on footprint you populate, blue is power and battery.</p>
-        <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:22px; overflow-x:auto;">
-          <img src="assets/pinout-map.svg" alt="Newsheen pinout map, front and back — each GPIO and pad labeled by function, color-coded stock / add-on / power" style="width:100%; max-width:860px; display:block; margin:0 auto;">
-        </div>
+      <h3 style="margin:0 0 6px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">Add hardware, add powers</h3>
+      <p style="margin:0 0 16px; max-width:64ch; font-size:15px;">The Sheen ships bare. Populate the sensor header, antenna pad, and IR spot to unlock the builds that need them.</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:0 0 48px;" class="grid-2col">
+        <figure style="margin:0; background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:14px;">
+          <img src="assets/photo-board-top.jpg" alt="The Newsheen board with an Adafruit I2S microphone on the sensor header and a coil LoRa antenna on the antenna pad" style="width:100%; display:block; border-radius:8px;">
+          <figcaption style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#98a09a; margin-top:10px;">An I²S mic on the sensor header and a LoRa antenna on the pad — sound-reactive WLED and mesh, added.</figcaption>
+        </figure>
+        <figure style="margin:0; background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:14px;">
+          <img src="assets/photo-audio-amp.jpg" alt="A MAX98357A I2S amplifier and a speaker wired to the Newsheen J3 header" style="width:100%; display:block; border-radius:8px;">
+          <figcaption style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#98a09a; margin-top:10px;">A MAX98357A amp and speaker on J3 — what Newsheen Radio needs to make sound.</figcaption>
+        </figure>
       </div>
 
       <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:36px; align-items:start;">
@@ -309,11 +314,12 @@ lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
           <p style="margin:0 0 12px; font-size:14px;"><strong style="color:#14181b;">External power goes to the <code class="chip">N-EXT</code> pad only — never wire 5&nbsp;V or a battery to the <code class="chip">3V3</code> pad.</strong> That pad is the regulator's output; back-feeding it can damage the board.</p>
           <p style="margin:0 0 12px; font-size:14px;">The 3.3&nbsp;V rail comes from an onboard regulator fed by the 5&nbsp;V bus, so external power must be a regulated 5&nbsp;V — a bare 3.7&nbsp;V LiPo browns the board out. Run the cell through a charge-and-boost board set to 5&nbsp;V: its output to the corner <code class="chip">N-EXT</code> pad and a <code class="chip">GND</code> pad, then bridge the <code class="chip">JP1</code> jumper beside it — the silk reads <code class="chip">SOLDER JP1 FOR EXT PWR</code>. Charge through the boost board's own USB, not the Sheen's.</p>
           <div style="font-size:13px; color:#98a09a;">Full GPIO map and build notes: <a href="https://github.com/RetiaLLC/Newsheen/blob/main/hardware/pinout.md" target="_blank" rel="noopener">hardware/pinout.md</a>. Part picks and a wiring diagram: ask in the <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener">Discord</a>.</div>
+          <img src="assets/photo-battery.jpg" alt="A LiPo battery wired through a 5 V charge-and-boost board into the Newsheen's N-EXT and GND pads" style="width:100%; display:block; border-radius:10px; margin-top:16px;">
         </div>
         <div>
           <h3 style="margin:0 0 10px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">The shell &amp; case files</h3>
           <p style="margin:0 0 14px; max-width:52ch; font-size:15px;">The puck sits in a 3D-printed base under the translucent silicone lamp. The printable base, button, and retaining ring (v4), plus board STLs and the pinout, live in the Newsheen repo.</p>
-          <img src="assets/puck-persp.png" alt="Perspective render of the Newsheen ESP32-S3 controller board" style="width:100%; max-width:280px; border-radius:12px; border:1px solid #e2ddd0; margin-bottom:14px;">
+          <img src="assets/photo-in-base.jpg" alt="The Newsheen board glowing blue inside its purple 3D-printed base, with the mic and LoRa antenna fitted" style="width:100%; max-width:320px; border-radius:12px; border:1px solid #e2ddd0; margin-bottom:14px;">
           <div style="font-size:14px; line-height:1.9;">→ <a href="https://github.com/RetiaLLC/Newsheen/tree/main/hardware/3d" target="_blank" rel="noopener">hardware/3d</a> — printed base + button + retaining ring + board STLs<br>
           → <a href="https://github.com/RetiaLLC/Newsheen/blob/main/hardware/pinout.md" target="_blank" rel="noopener">hardware/pinout.md</a> — full GPIO map + build notes<br>
           → <a href="https://github.com/RetiaLLC/Newsheen/releases/tag/v1.0.0" target="_blank" rel="noopener">Newsheen v1.0.0 release</a> — ready-to-flash factory bins</div>
