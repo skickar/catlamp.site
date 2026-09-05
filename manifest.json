@@ -166,11 +166,11 @@
    "gate": true,
    "capabilities": [
     "Actively drive I²C / SPI / UART / 1-Wire / JTAG buses on attached hardware",
-    "Transmit infrared and transmit/receive on the onboard SX1262 LoRa radio"
+    "Transmit infrared (and LoRa, if a Wio-SX1262 is added)"
    ],
-   "desc": "The 'Swiss Army knife' hardware-hacking multitool (inspired by the Bus Pirate), on the Sheen. Talk to I²C / SPI / UART / 1-Wire / JTAG chips, blast infrared, drive the 8-LED ring, and sniff or talk LoRa on the onboard SX1262 — all from a CLI over USB or the puck's Wi-Fi web terminal. 26 modes.",
+   "desc": "The 'Swiss Army knife' hardware-hacking multitool (inspired by the Bus Pirate), on the Sheen. Talk to I²C / SPI / UART / 1-Wire / JTAG chips, blast infrared, and drive the 8-LED ring — all from a CLI over USB or the puck's Wi-Fi web terminal. 26 modes. Works stock, no radio needed; add a Wio-SX1262 and it does LoRa too.",
    "buildsLine": "boots to the 'HIZ>' CLI over USB serial @115200",
-   "note": "Transmit-capable (infrared and LoRa) and it actively drives attached buses. The LoRa modes need the optional Wio-SX1262 fitted; before any LoRa transmission, attach an antenna. Only probe or transmit against hardware you own or are authorized to test.",
+   "note": "Transmit-capable (infrared) and it actively drives attached buses — works stock, no radio needed. Only probe or transmit against hardware you own or are authorized to test. Its LoRa modes need a Wio-SX1262 added.",
    "docs": "https://github.com/RetiaLLC/ESP32-Bus-Pirate",
    "src": "https://github.com/RetiaLLC/ESP32-Bus-Pirate",
    "logo": "assets/logo-bitpirate.png",
