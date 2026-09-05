@@ -119,17 +119,17 @@
   <section id="start" style="border-top:1px solid #e2ddd0;">
     <div style="max-width:1140px; margin:0 auto; padding:80px 36px;">
       <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">[01] // getting_started</div>
-      <h2 style="margin:0 0 14px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">From box to glowing in four steps</h2>
-      <p style="margin:0 0 44px; max-width:62ch; font-size:16px;">Your Sheen ships as a blank ESP32-S3. Give it a personality and it wakes up.</p>
+      <h2 style="margin:0 0 14px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">Glow up your cat in 4 steps</h2>
+      <p style="margin:0 0 44px; max-width:62ch; font-size:16px;">Your Sheen ships as a sweet and innocent smart lamp, flashed with the WLED project. Here's how to switch, or restore any Newsheen from scratch!</p>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;" class="grid-2col">
         <ol style="list-style:none; margin:0; padding:0; display:grid; gap:26px;">
           <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
             <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">01</span>
-            <span><strong style="color:#14181b; font-size:16px;">Plug into USB-C.</strong><br>The S3's native USB shows up as a serial port — no drivers. macOS: <code class="chip">/dev/cu.usbmodem*</code>, Linux: <code class="chip">/dev/ttyACM0</code>, Windows: <code class="chip">COMx</code>.</span>
+            <span><strong style="color:#14181b; font-size:16px;">Plug into USB-C.</strong><br>The S3's native USB shows up as a serial port — no drivers.<span style="display:block; margin-top:8px; font-style:italic; color:#5d6659; font-size:13.5px; line-height:1.6;">hint: macOS <code class="chip">/dev/cu.usbmodem*</code>, Linux <code class="chip">/dev/ttyACM0</code>, Windows <code class="chip">COMx</code>.</span></span>
           </li>
           <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
             <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">02</span>
-            <span><strong style="color:#14181b; font-size:16px;">Add the radio for mesh (optional).</strong><br>The Sheen ships without a radio. Meshtastic, MeshCore, RNode and Bit Pirate need a Seeed Wio-SX1262 fitted. Once it's in, <em style="color:#c77d00;">before you transmit,</em> attach a 915&nbsp;MHz antenna — receiving is safe, but transmitting into nothing can cook the radio.</span>
+            <span><strong style="color:#14181b; font-size:16px;">Using LoRa? Add a radio for mesh (optional).</strong><br>The Sheen ships without a LoRa radio. Meshtastic, MeshCore, RNode and Bit Pirate need a Seeed Wio-SX1262 added. Once it's soldered in place, attach a 915&nbsp;MHz antenna <em style="color:#c77d00;">before you transmit.</em></span>
           </li>
           <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
             <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">03</span>
@@ -137,7 +137,7 @@
           </li>
           <li style="display:grid; grid-template-columns:52px 1fr; gap:18px;">
             <span style="font-family:'IBM Plex Mono',monospace; font-size:26px; font-weight:600; color:#00a35f;">04</span>
-            <span><strong style="color:#14181b; font-size:16px;">Set it up over Wi-Fi.</strong><br>Most builds raise their own Wi-Fi AP with a setup page — WLEDkitty at <code class="chip">http://4.3.2.1</code>, Newsheen Radio at its own captive page. Mesh builds pair to a phone app instead.</span>
+            <span><strong style="color:#14181b; font-size:16px;">Reset &amp; connect.</strong><br>After flashing is complete, unplug your board and plug it back in to run the new firmware. Many firmware projects make their own Wi-Fi AP with a setup page.<span style="display:block; margin-top:8px; font-style:italic; color:#5d6659; font-size:13.5px; line-height:1.6;">hint: for WLED (the default firmware) look for a network named <code class="chip">WLED-AP</code> and connect with the password <code class="chip">wled1234</code> to reach the controls. Newsheen Radio makes its own captive page. Mesh builds pair to a phone or web app instead, over Bluetooth or USB.</span></span>
           </li>
         </ol>
         <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:28px 30px; align-self:start;">
@@ -147,6 +147,10 @@
             <li><strong style="color:#14181b;">Running on a battery?</strong> Feed a regulated 5&nbsp;V into the <code class="chip">N-EXT</code> pad and bridge <code class="chip">JP1</code> — the onboard regulator makes 3.3&nbsp;V from it. Never put 5&nbsp;V or a raw battery on the <code class="chip">3V3</code> pad; that pad is the regulator's output. Details in <a href="#hardware">Hardware</a>.</li>
             <li><strong style="color:#14181b;">Add-ons unlock builds.</strong> Newsheen Radio needs a MAX98357A amp and speaker on the J3 header; WLEDkitty's sound-reactive mode needs an I²S mic there, and its remote needs the IR receiver fitted.</li>
           </ol>
+          <figure style="margin:18px 0 0;">
+            <img src="assets/photo-boot-button.jpg" alt="The BOOT button on the Newsheen board, circled in red, beside the 16 NEOPIXEL silkscreen label" style="width:100%; display:block; border-radius:10px; border:1px solid #e2ddd0;">
+            <figcaption style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#98a09a; margin-top:8px;">Where to find the BOOT button (00_BOOT) — hold it while plugging in to force download mode.</figcaption>
+          </figure>
         </div>
       </div>
     </div>
