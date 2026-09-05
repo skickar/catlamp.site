@@ -121,7 +121,7 @@
   },
   {
    "id": "newsheen-circuitpython",
-   "mark": ">>>",
+   "logo": "assets/logo-circuitpython.svg",
    "name": "CircuitPython",
    "ver": "10.2.1",
    "desc": "Code your cat in Python — no toolchain. CircuitPython mounts the Sheen as a USB drive named CIRCUITPY; drop a code.py on it and it runs the moment you save. A friendly way to drive the 8 LEDs, read the sensor header, and build your own gadgets. Board profile: ESP32-S3 DevKitC-1 (N16).",
