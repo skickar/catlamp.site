@@ -205,7 +205,13 @@
       <p style="margin:0 0 36px; font-size:16px;">Bit Pirate and the RNode/CLI builds speak over serial at 115200 baud. Click connect, pick the Sheen, and you're in.</p>
       <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:16px;">
         <select id="ser-baud" style="background:#fff; color:#14181b; border:1px solid #d5cfc0; border-radius:9px; padding:11px 14px; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600;">
-          <option value="115200">115200 baud</option>
+          <option value="9600">9600 baud</option>
+          <option value="19200">19200 baud</option>
+          <option value="38400">38400 baud</option>
+          <option value="57600">57600 baud</option>
+          <option value="74880">74880 baud</option>
+          <option value="115200" selected>115200 baud</option>
+          <option value="230400">230400 baud</option>
           <option value="460800">460800 baud</option>
           <option value="921600">921600 baud</option>
           <option value="1000000">1000000 baud</option>
@@ -231,7 +237,7 @@
         </div>
         <div style="background:#fff; border:1px solid #e2ddd0; border-radius:12px; padding:20px 22px;">
           <div style="font-family:'IBM Plex Mono',monospace; color:#00a35f; margin-bottom:8px; font-size:13px;">// meshtastic note</div>
-          USB carries the protobuf client API, not a text log — use the phone app or <code class="chip chip-sm">meshtastic --port PORT --info</code>.
+          Meshtastic's USB is the binary client API, not a text log, so this monitor won't show readable output. Talk to it with the Meshtastic phone app over Bluetooth, or the web client at <code class="chip chip-sm">client.meshtastic.org</code>.
         </div>
         <div style="background:#fff; border:1px solid #e2ddd0; border-radius:12px; padding:20px 22px;">
           <div style="font-family:'IBM Plex Mono',monospace; color:#00a35f; margin-bottom:8px; font-size:13px;">// rnode status</div>
