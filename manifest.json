@@ -7,7 +7,7 @@
    "name": "WLEDkitty",
    "ver": "17.0.0-dev",
    "recommended": true,
-   "desc": "The flagship cat-lamp build. Drives the 8 LEDs inside the translucent Sheen, makes them dance to sound through the onboard I²S mic, and takes a 21-key IR remote. Boots into the Freqwave audio visualizer with the full WLED web UI over its own Wi-Fi AP.",
+   "desc": "The flagship cat-lamp build. Drives the 8 LEDs inside the translucent Sheen, makes them dance to sound through the onboard I²S mic, and takes a 21-key IR remote. Boots into the Pride rainbow animation with the full WLED web UI over its own Wi-Fi AP.",
    "buildsLine": "1 image — flashed here, then set up over Wi-Fi (http://4.3.2.1)",
    "note": "The 8 LEDs run stock; sound-reactive mode needs an I²S mic on the sensor header, and the 21-key remote needs the IR receiver fitted. After flashing, join its Wi-Fi network (starts with 'WLED-', unique to your cat; password wled1234) and open http://4.3.2.1 to name your Sheen's hotspot or join your own network.",
    "docs": "https://github.com/RetiaLLC/WLEDkitty",
