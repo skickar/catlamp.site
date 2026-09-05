@@ -72,40 +72,27 @@
    ]
   },
   {
-   "id": "newsheen-meshcore-ble",
-   "name": "MeshCore Companion (Bluetooth)",
+   "id": "newsheen-meshcore",
+   "name": "MeshCore Companion",
    "ver": "1.16.0",
    "recommended": true,
-   "desc": "MeshCore companion for the Sheen — pairs to the MeshCore phone app over Bluetooth (PIN 123456). Incoming mesh messages flash the 8 NeoPixels (and beep an optional piezo). The wireless 'mesh lamp' build.",
-   "buildsLine": "pair over Bluetooth in the MeshCore app (PIN 123456)",
-   "note": "Needs the optional Wio-SX1262 LoRa radio fitted. Before transmitting, attach a LoRa antenna and set your region and preset in the app.",
+   "desc": "MeshCore companion for the Sheen — a long-range LoRa mesh messenger. Incoming messages flash the 8 NeoPixels (and beep an optional piezo). Two builds: pair with the MeshCore phone app over Bluetooth, or connect the web/desktop client over USB serial.",
+   "buildsLine": "two builds — pair over Bluetooth, or connect over USB serial",
+   "note": "Needs the optional Wio-SX1262 LoRa radio fitted. Before transmitting, attach a LoRa antenna and set your region and preset in the app. The Bluetooth build pairs with PIN 123456; the USB build connects at https://client.meshcore.co.uk over Web Serial.",
    "docs": "https://github.com/RetiaLLC/MeshCore",
    "src": "https://github.com/RetiaLLC/MeshCore",
    "logo": "assets/logo-meshcore.png",
    "builds": [
     {
      "file": "newsheen-meshcore-ble.bin",
-     "label": "MeshCore companion — Bluetooth pairing",
+     "label": "Bluetooth — pair with the phone app (PIN 123456)",
      "url": "firmware/newsheen-meshcore-ble.bin",
      "addr": 0,
      "sha256": "ed00906362989eb56d6fb29c1c2c2c65ddb1d649c2fd8938a282cd133a54f884"
-    }
-   ]
-  },
-  {
-   "id": "newsheen-meshcore-usb",
-   "name": "MeshCore Companion (USB Serial)",
-   "ver": "1.16.0",
-   "desc": "MeshCore companion that connects to the MeshCore web/desktop client over USB serial (Web Serial) — no Bluetooth pairing. Incoming mesh messages flash the 8 NeoPixels when no client is attached. TinyUSB build.",
-   "buildsLine": "connect at client.meshcore.co.uk over Web Serial",
-   "note": "Needs the optional Wio-SX1262 LoRa radio fitted. Before transmitting, attach a LoRa antenna. Open https://client.meshcore.co.uk and connect over serial (USB).",
-   "docs": "https://github.com/RetiaLLC/MeshCore",
-   "src": "https://github.com/RetiaLLC/MeshCore",
-   "logo": "assets/logo-meshcore.png",
-   "builds": [
+    },
     {
      "file": "newsheen-meshcore-usb.bin",
-     "label": "MeshCore companion — USB serial",
+     "label": "USB serial — connect at client.meshcore.co.uk",
      "url": "firmware/newsheen-meshcore-usb.bin",
      "addr": 0,
      "sha256": "0ec3fda1f87be7bc5899a1d23757629a2c0e73b42b827f147f6e75720aa6e2a4"
@@ -129,6 +116,27 @@
      "url": "firmware/newsheen-reticulum-rnode.bin",
      "addr": 0,
      "sha256": "49045e5b5f71e2a9cc9e4c9e88e5e00f8cade411984910cff5cb09946b54f61a"
+    }
+   ]
+  },
+  {
+   "id": "newsheen-circuitpython",
+   "mark": ">>>",
+   "name": "CircuitPython",
+   "ver": "10.2.1",
+   "desc": "Code your cat in Python — no toolchain. CircuitPython mounts the Sheen as a USB drive named CIRCUITPY; drop a code.py on it and it runs the moment you save. A friendly way to drive the 8 LEDs, read the sensor header, and build your own gadgets. Board profile: ESP32-S3 DevKitC-1 (N16).",
+   "buildsLine": "one 16 MB image — then edit code.py on the CIRCUITPY drive",
+   "note": "This is a ~16 MB full-flash image and takes about a minute to write. After flashing, the Sheen shows up as a USB drive named CIRCUITPY — edit code.py there and save to run. The serial monitor above shows print() output and the REPL.",
+   "docs": "https://github.com/RetiaLLC/CircuitPython",
+   "src": "https://github.com/RetiaLLC/CircuitPython",
+   "builds": [
+    {
+     "file": "newsheen-circuitpython.bin",
+     "label": "CircuitPython 10.2.1 — full 16 MB image, ~1 min",
+     "url": "firmware/newsheen-circuitpython.bin",
+     "addr": 0,
+     "sha256": "1b02d02e0ca7883f2488b0113bdc589951426a162fdb22bdf430e7eec14ea3a0",
+     "erase": true
     }
    ]
   },
