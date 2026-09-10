@@ -67,52 +67,9 @@
       <div style="margin-top:24px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#98a09a;">// flashing and the serial monitor run on any browser supporting Web Serial.<br>// made in the USA by real catboys and catgirls.</div>
     </div>
     <div style="user-select:none; display:flex; align-items:center; justify-content:center;">
-      <svg viewBox="0 0 400 400" width="100%" style="max-width:420px; aspect-ratio:1/1;" role="img" aria-label="The Newsheen's eight-LED ring glowing in rainbow colors inside the translucent cat lamp">
-        <defs>
-          <radialGradient id="lampbody" cx="50%" cy="46%" r="58%">
-            <stop offset="0%" stop-color="#fffef9"/><stop offset="62%" stop-color="#fbf6ec"/><stop offset="100%" stop-color="#efe7d6"/>
-          </radialGradient>
-          <filter id="soft" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="9"/></filter>
-        </defs>
-        <!-- ambient glow -->
-        <circle class="ring-glow" cx="200" cy="200" r="150" fill="#00a35f" opacity="0.10" filter="url(#soft)"/>
-        <!-- lamp body: a rounded cat silhouette -->
-        <g>
-          <path d="M118 96 C 120 60, 150 66, 152 104 C 176 92, 224 92, 248 104 C 250 66, 280 60, 282 96 C 322 120, 344 168, 344 224 C 344 300, 286 344, 200 344 C 114 344, 56 300, 56 224 C 56 168, 78 120, 118 96 Z" fill="url(#lampbody)" stroke="#e2ddd0" stroke-width="2"/>
-        </g>
-        <!-- the 8-LED ring -->
-        <g class="ring-rot">
-          <g class="ring-glow">
-          <!-- glow halos -->
-          <g filter="url(#soft)" opacity="0.9">
-            <circle cx="200" cy="132" r="15" fill="#e40303"/>
-            <circle cx="248" cy="152" r="15" fill="#ff8c00"/>
-            <circle cx="268" cy="200" r="15" fill="#ffed00"/>
-            <circle cx="248" cy="248" r="15" fill="#33d17a"/>
-            <circle cx="200" cy="268" r="15" fill="#008026"/>
-            <circle cx="152" cy="248" r="15" fill="#0092ff"/>
-            <circle cx="132" cy="200" r="15" fill="#004dff"/>
-            <circle cx="152" cy="152" r="15" fill="#750787"/>
-          </g>
-          <!-- LED dots -->
-          <g stroke="#fff" stroke-width="2">
-            <circle cx="200" cy="132" r="9" fill="#e40303"/>
-            <circle cx="248" cy="152" r="9" fill="#ff8c00"/>
-            <circle cx="268" cy="200" r="9" fill="#ffed00"/>
-            <circle cx="248" cy="248" r="9" fill="#33d17a"/>
-            <circle cx="200" cy="268" r="9" fill="#008026"/>
-            <circle cx="152" cy="248" r="9" fill="#0092ff"/>
-            <circle cx="132" cy="200" r="9" fill="#004dff"/>
-            <circle cx="152" cy="152" r="9" fill="#750787"/>
-          </g>
-          </g>
-        </g>
-        <!-- cat face hint -->
-        <g fill="#c9c1ad" opacity="0.8">
-          <circle cx="176" cy="205" r="5"/><circle cx="224" cy="205" r="5"/>
-          <path d="M192 220 q8 7 16 0" fill="none" stroke="#c9c1ad" stroke-width="3" stroke-linecap="round"/>
-        </g>
-      </svg>
+      <div style="position:relative; width:100%; max-width:460px; aspect-ratio:1/1; background:#07090d; border-radius:20px; overflow:hidden; box-shadow:0 24px 60px -24px rgba(20,24,27,0.5);">
+        <iframe src="cat-lamp/index.html?embed=1" title="A glowing 3D cat lamp, slowly rotating and cycling through colors" loading="eager" style="position:absolute; inset:0; width:100%; height:100%; border:0; background:transparent; pointer-events:none;"></iframe>
+      </div>
     </div>
   </header>
 
