@@ -1,0 +1,17 @@
+{
+ "_note": "UNTESTED community images for the Newsheen. Each is served same-origin from firmware/ and pinned to a sha256 the flasher verifies. A hard untested-gate is shown before every flash.",
+ "images": [
+  {
+   "id": "rgbtastic",
+   "name": "Newsheen RGBtastic",
+   "author": "sasquelch-digital",
+   "desc": "A Meshtastic fork that adds RGB light effects and remote control — the 8 LEDs react to mesh activity, and you can drive them remotely over the mesh. Needs the optional LoRa radio (Wio-SX1262) fitted; attach a 915 MHz antenna before transmitting.",
+   "source": "https://github.com/sasquelch-digital/Newsheen-RGBtastic",
+   "submitted": "2026-08",
+   "file": "rgbtastic.bin",
+   "url": "firmware/rgbtastic.bin",
+   "addr": 0,
+   "sha256": "a8c01a513f90abe20c4dac9825d319d6ee2b1550e16c1d68ff38f30c84d3bc19"
+  }
+ ]
+}

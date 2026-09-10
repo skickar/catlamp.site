@@ -5,11 +5,12 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Community projects · Newsheen</title>
-<meta name="description" content="Community and unofficial firmware for the Newsheen cat-lamp puck — student builds and other open-source projects that run on its ESP32-S3. Not hardware-verified by Retia; flash at your own risk.">
+<meta name="description" content="Community and unofficial firmware for the Newsheen cat-lamp puck — student builds and other open-source projects. Flash them in your browser (untested), or upload your own .bin. Not hardware-verified by Retia.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='0.9em'%20font-size='90'%3E%F0%9F%98%B8%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="../vendor/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../vendor/fonts.css">
 <link rel="stylesheet" href="../styles.css">
+<script type="module" src="../vendor/esptool-init.js"></script>
 </head>
 <body>
 <div style="font-family:'Archivo',sans-serif; background:#faf9f5; color:#3c443f; min-height:100vh; font-size:15px; line-height:1.65;">
@@ -28,10 +29,10 @@
   <header style="max-width:920px; margin:0 auto; padding:72px 36px 40px;">
     <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:12px;">// community_projects</div>
     <h1 style="margin:0 0 14px; font-size:52px; line-height:1.02; color:#14181b; font-weight:900; letter-spacing:-1.8px;">Community projects</h1>
-    <p style="margin:0 0 24px; max-width:64ch; font-size:17px;">Builds and firmware from the community — student projects, experiments, and other open-source software that runs on the Sheen's ESP32-S3. This is the unofficial shelf: a place to share what you've made and find what others are running.</p>
+    <p style="margin:0 0 24px; max-width:64ch; font-size:17px;">Builds and firmware from the community — student projects, experiments, and other open-source software that runs on the Sheen's ESP32-S3. Flash them here in your browser, or upload your own <code class="chip">.bin</code>.</p>
     <div style="background:#f7ead8; border:1px solid #c07a2a; border-left-width:4px; border-radius:10px; padding:16px 20px; max-width:64ch;">
       <div style="font-family:'IBM Plex Mono',monospace; color:#7a4a12; font-weight:600; font-size:13px; margin-bottom:6px;">!! not hardware-verified</div>
-      <div style="font-size:14px; color:#5d4a2e;">Nothing here is tested or endorsed by Retia the way the <a href="../#flash">official projects</a> are. Community images can behave unexpectedly. Read the source, and flash at your own risk. An ESP32-S3 is hard to truly brick — hold <strong>BOOT</strong> while plugging in to recover, then reflash an official build.</div>
+      <div style="font-size:14px; color:#5d4a2e;">Nothing here is tested or endorsed by Retia the way the <a href="../#flash">official projects</a> are. Community images can misbehave or fail to boot, and you'll confirm an "untested" warning before every flash. An ESP32-S3 is hard to truly brick — hold <strong>BOOT</strong> while plugging in to recover, then reflash an official build.</div>
     </div>
   </header>
 
@@ -39,20 +40,63 @@
     <div style="max-width:920px; margin:0 auto; padding:56px 36px;">
       <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">// featured</div>
       <h2 style="margin:0 0 20px; font-size:30px; color:#14181b; font-weight:800; letter-spacing:-0.8px;">Featured student build</h2>
-      <div style="border:2px dashed #d5cfc0; border-radius:14px; padding:32px; background:#fff; text-align:center;">
-        <div style="font-size:40px; margin-bottom:8px;">🐱‍💻</div>
-        <div style="font-weight:800; font-size:18px; color:#14181b; margin-bottom:6px;">Your project could be here</div>
-        <p style="margin:0 auto 14px; max-width:52ch; font-size:14.5px; color:#5d6659;">The first featured slot is open. Built something for the Sheen in a workshop or on your own — a light show, a sensor logger, a game, a mod? Share it and we'll feature it here for everyone to try.</p>
-        <a href="https://github.com/skickar/catlamp.site/issues/new" target="_blank" rel="noopener" class="btn-dark" style="display:inline-block; font-size:14px; padding:12px 22px; border-radius:10px; text-decoration:none;">[ submit your build ]</a>
+      <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:26px 28px; display:grid; grid-template-columns:56px 1fr; gap:20px; align-items:start;" class="grid-dl">
+        <div style="width:56px; height:56px; background:#14181b; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:26px;">🌈</div>
+        <div>
+          <div style="color:#14181b; font-weight:800; font-size:22px; letter-spacing:-0.5px;">Newsheen RGBtastic</div>
+          <div style="font-family:'IBM Plex Mono',monospace; color:#98a09a; font-size:12.5px; margin:5px 0 12px;">by <a href="https://github.com/sasquelch-digital" target="_blank" rel="noopener">sasquelch-digital</a> · Meshtastic fork · pre-release v1.0.1</div>
+          <p style="margin:0 0 14px; font-size:15px; max-width:60ch;">A Meshtastic fork that adds RGB light effects and remote control to the mesh — the 8 LEDs react to mesh activity, and you can drive them remotely from another node. Needs the optional LoRa radio (Wio-SX1262) fitted; attach a 915&nbsp;MHz antenna before transmitting.</p>
+          <div style="display:flex; gap:16px; flex-wrap:wrap; font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600;">
+            <a href="#flasher">↓ flash it below</a>
+            <a href="https://github.com/sasquelch-digital/Newsheen-RGBtastic" target="_blank" rel="noopener" class="link-dim">[source ↗]</a>
+            <a href="https://github.com/sasquelch-digital/Newsheen-RGBtastic/releases/tag/newsheen-v1.0.1" target="_blank" rel="noopener" class="link-dim">[release ↗]</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section style="border-top:1px solid #e2ddd0; background:#f2efe7;">
+  <section id="flasher" style="border-top:1px solid #e2ddd0; background:#f2efe7;">
+    <div style="max-width:920px; margin:0 auto; padding:56px 36px;">
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#d6008f; margin-bottom:10px;">// community_flasher</div>
+      <h2 style="margin:0 0 12px; font-size:30px; color:#14181b; font-weight:800; letter-spacing:-0.8px;">Flash a community image</h2>
+      <p style="margin:0 0 28px; max-width:64ch; font-size:16px;">Pick a community image, or upload your own <code class="chip">.bin</code>. Every flash shows an <strong style="color:#d6008f;">untested</strong> confirmation first. Hosted images are pinned to a hash the flasher checks before writing.</p>
+      <div style="display:grid; grid-template-columns:1fr 1.1fr; gap:36px; align-items:start;" class="grid-2col">
+        <div style="display:grid; gap:18px;">
+          <label style="display:grid; gap:8px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#98a09a;">community image
+            <select id="c-select" style="background:#fff; color:#14181b; border:1px solid #d5cfc0; border-radius:9px; padding:12px 14px; font-family:'IBM Plex Mono',monospace; font-size:14px; font-weight:600;"></select>
+          </label>
+          <div id="c-desc" style="font-size:14px;">loading…</div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;">
+            <button id="c-flash" class="btn-dark" style="border:none; font-size:14px; padding:15px 26px; border-radius:10px; cursor:pointer;">[ CONNECT &amp; FLASH ]</button>
+            <button id="c-local" class="btn-outline" style="background:transparent; font-size:14px; padding:13px 22px; border-radius:10px; cursor:pointer;">[ FLASH LOCAL .BIN ]</button>
+            <input type="file" accept=".bin" id="c-file" style="display:none;">
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:#98a09a; line-height:1.7;">stuck? hold the <span style="color:#14181b; font-weight:600;">BOOT</span> button while you plug in USB, then release — that forces download mode. hit CONNECT again.<br>if an image misbehaves, recover and flash an <a href="../#flash">official build</a>.</div>
+        </div>
+        <div style="border-radius:14px; background:#0c1310; box-shadow:0 20px 50px -18px rgba(20,24,27,0.4); overflow:hidden;">
+          <div style="display:flex; align-items:center; gap:8px; padding:10px 16px; border-bottom:1px solid #1c2a24; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#5a7a68;">
+            <span style="width:9px; height:9px; border-radius:50%; background:#ff5566;"></span>
+            <span style="width:9px; height:9px; border-radius:50%; background:#ffb454;"></span>
+            <span style="width:9px; height:9px; border-radius:50%; background:#3dffa0;"></span>
+            <span style="margin-left:8px;">community_flasher</span>
+            <span id="c-progress" style="margin-left:auto; color:#3dffa0;"></span>
+          </div>
+          <div style="position:relative;">
+            <pre id="c-log" style="margin:0; padding:16px 18px; height:340px; overflow:auto; font-family:'IBM Plex Mono',monospace; font-size:12.5px; line-height:1.65; color:#8fb8a3; white-space:pre-wrap; word-break:break-word;">// community flasher idle — pick an image (or your own .bin), plug the Sheen in, hit CONNECT
+// these images are UNTESTED and UNVERIFIED. read the banner above.</pre>
+            <div style="position:absolute; inset:0; pointer-events:none; background:repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:1px solid #e2ddd0;">
     <div style="max-width:920px; margin:0 auto; padding:56px 36px;">
       <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">// other_firmware</div>
       <h2 style="margin:0 0 12px; font-size:30px; color:#14181b; font-weight:800; letter-spacing:-0.8px;">Run other open-source firmware</h2>
-      <p style="margin:0 0 28px; max-width:64ch; font-size:16px;">The Sheen's brain is a standard <strong>ESP32-S3 (DevKitC-1, N16)</strong>, so plenty of general-purpose ESP32 firmware runs on it. These aren't tuned for the Sheen out of the box — you'll usually set the LED pin to <code class="chip">GPIO 16</code> (8 WS2812B), and the sensor header / radio pins yourself. Great for tinkering.</p>
+      <p style="margin:0 0 28px; max-width:64ch; font-size:16px;">The Sheen's brain is a standard <strong>ESP32-S3 (DevKitC-1, N16)</strong>, so plenty of general-purpose ESP32 firmware runs on it. These aren't tuned for the Sheen out of the box — you'll usually set the LED pin to <code class="chip">GPIO 16</code> (8 WS2812B), and the sensor header / radio pins yourself.</p>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;" class="grid-2col">
         <div style="background:#fff; border:1px solid #e2ddd0; border-radius:12px; padding:22px 24px;">
           <div style="font-weight:800; font-size:17px; color:#14181b; margin-bottom:6px;">WLED (upstream)</div>
@@ -79,13 +123,13 @@
     </div>
   </section>
 
-  <section style="border-top:1px solid #e2ddd0;">
+  <section style="border-top:1px solid #e2ddd0; background:#f2efe7;">
     <div style="max-width:920px; margin:0 auto; padding:56px 36px 72px;">
       <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">// contribute</div>
       <h2 style="margin:0 0 12px; font-size:30px; color:#14181b; font-weight:800; letter-spacing:-0.8px;">Share your project</h2>
-      <p style="margin:0 0 20px; max-width:64ch; font-size:16px;">Made a firmware, a mod, a lesson, or a build guide for the Sheen? Send it in and we'll list it here. Open an issue or a pull request on the site repo with a link to your source and a short description.</p>
+      <p style="margin:0 0 20px; max-width:64ch; font-size:16px;">Made a firmware, a mod, a lesson, or a build guide for the Sheen? Send it in and we'll add it to the flasher. Open an issue or a pull request on the site repo with your <code class="chip">.factory.bin</code> (or a release link), a short description, and your name.</p>
       <div style="display:flex; gap:12px; flex-wrap:wrap;">
-        <a href="https://github.com/skickar/catlamp.site/issues/new" target="_blank" rel="noopener" class="btn-dark" style="display:inline-block; font-size:14px; padding:13px 22px; border-radius:10px; text-decoration:none;">[ open an issue ]</a>
+        <a href="https://github.com/skickar/catlamp.site/issues/new" target="_blank" rel="noopener" class="btn-dark" style="display:inline-block; font-size:14px; padding:13px 22px; border-radius:10px; text-decoration:none;">[ submit your build ]</a>
         <a href="https://github.com/skickar/catlamp.site" target="_blank" rel="noopener" class="btn-outline" style="display:inline-block; background:transparent; font-size:14px; padding:12px 20px; border-radius:10px; text-decoration:none;">[ the site repo ↗ ]</a>
       </div>
     </div>
@@ -100,5 +144,6 @@
 
   </div>
 </div>
+<script src="community.js"></script>
 </body>
 </html>
