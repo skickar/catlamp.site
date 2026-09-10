@@ -10,8 +10,7 @@
   var selId = null;
   var selBuild = 0;
   var flashing = false;
-  var flashLogText = '// flasher idle — pick a build, plug the Sheen in, hit CONNECT\n// tip: close other serial monitors first. one client per port.';
-  var serText = '// serial monitor idle — plug a Sheen in and hit CONNECT';
+  var termText = '// console idle — flash a build, or connect the serial monitor\n// one client per port: flashing and the monitor share the connection';
   var serOn = false;
   var serPort = null, serReader = null, serReading = false;
   // firmwareId -> {tag, count} for the [guides] cross-link (filled from tutorials/tutorials.json)
@@ -31,14 +30,10 @@
   }
 
   // --- terminals -------------------------------------------------------------
-  function flog(l) {
-    flashLogText = (flashLogText + '\n' + l).split('\n').slice(-300).join('\n');
-    var el = $('flash-log'); el.textContent = flashLogText; el.scrollTop = el.scrollHeight;
-  }
-  function serAppend(t) {
-    serText = (serText + t).slice(-24000);
-    var el = $('ser-log'); el.textContent = serText; el.scrollTop = el.scrollHeight;
-  }
+  // Flasher and serial monitor share ONE console element (#console-log) + buffer.
+  function termRender() { var el = $('console-log'); if (el) { el.textContent = termText; el.scrollTop = el.scrollHeight; } }
+  function flog(l) { termText = (termText + '\n' + l).slice(-24000); termRender(); }
+  function serAppend(t) { termText = (termText + t).slice(-24000); termRender(); }
   function slog(l) { serAppend('\n' + l); }
   function setProgress(pct) {
     var el = $('flash-progress');
@@ -431,7 +426,7 @@
     $('btn-local').addEventListener('click', function () { $('fw-file').click(); });
     $('fw-file').addEventListener('change', flashLocal);
     $('btn-ser').addEventListener('click', function () { serOn ? serDisconnect() : serConnect(); });
-    $('btn-ser-clear').addEventListener('click', function () { serText = ''; $('ser-log').textContent = ''; });
+    $('btn-ser-clear').addEventListener('click', function () { termText = ''; $('console-log').textContent = ''; });
     $('btn-ser-send').addEventListener('click', serSendLine);
     $('ser-in').addEventListener('keydown', function (ev) { if (ev.key === 'Enter') serSendLine(); });
     startSpin();
