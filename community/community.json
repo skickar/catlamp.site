@@ -2,6 +2,18 @@
  "_note": "UNTESTED community images for the Newsheen. Each is served same-origin from firmware/ and pinned to a sha256 the flasher verifies. A hard untested-gate is shown before every flash.",
  "images": [
   {
+   "id": "transcript-sheen",
+   "name": "Transcript-Sheen",
+   "author": "Retia LLC",
+   "desc": "Turns the lamp into a private meeting transcriber. Hold the button for 2s to go on air (slow red pulse); the lamp streams its microphone — encrypted with ChaCha20-Poly1305 — to a Raspberry Pi on your network that runs local speech-to-text and shows a live transcript you can open from anywhere. Works across different networks with no port forwarding: both sides dial out to a free public MQTT broker, which only ever relays ciphertext. Runs on top of normal WLED. Set your encryption key + topic in Usermod Settings after flashing (no secret is baked in). Requires an I2S MEMS microphone (INMP441 or SPH0645) wired to the J3 header. Full guide: github.com/skickar/transcript-sheen.",
+   "source": "https://github.com/skickar/transcript-sheen",
+   "submitted": "2026-09",
+   "file": "transcript-sheen.bin",
+   "url": "firmware/transcript-sheen.bin",
+   "addr": 0,
+   "sha256": "86637a2da64f52dcdeaef9a6271ebdd52553771c865e344f81d2f0099c254026"
+  },
+  {
    "id": "rgbtastic",
    "name": "Newsheen RGBtastic",
    "author": "sasquelch-digital",
