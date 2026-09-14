@@ -33,7 +33,7 @@
       <a href="https://retia.io" target="_blank" rel="noopener" class="nav-buy">Get one ↗</a>
       <a href="https://scriptkitty.sh" target="_blank" rel="noopener" class="nav-link">All Retia flashers</a>
       <a href="community/" class="nav-link">Community projects</a>
-      <a href="https://github.com/skickar/catlamp.site" target="_blank" rel="noopener" class="nav-link">GitHub</a>
+      <a href="https://github.com/RetiaLLC/Newsheen/releases/tag/v1.0.0" target="_blank" rel="noopener" class="nav-link">GitHub</a>
       <a href="#flash" class="btn-dark" style="font-size:13px; padding:9px 18px; border-radius:8px;">[ flash ]</a>
     </div>
   </nav>
@@ -101,7 +101,6 @@
           <div style="font-family:'IBM Plex Mono',monospace; color:#d6008f; font-weight:600; font-size:14px; margin-bottom:18px;">!! Sheen quirks worth knowing</div>
           <ol style="margin:0; padding-left:20px; display:grid; gap:16px; font-size:14px;">
             <li><strong style="color:#14181b;">Stuck flashing?</strong> Hold the <code class="chip">BOOT</code> button while you plug in USB, then release — that forces download mode. Hit CONNECT again.</li>
-            <li><strong style="color:#14181b;">Want to add a battery?</strong> You'll need a charging circuit that feeds a regulated 5&nbsp;V into the <code class="chip">N-EXT</code> pad, and to bridge <code class="chip">JP1</code>. Never put 5&nbsp;V or a raw battery on the <code class="chip">3V3</code> pad. Details in <a href="#hardware">Hardware</a>.</li>
             <li><strong style="color:#14181b;">Add-ons unlock builds.</strong> Newsheen Radio needs a MAX98357A amp and speaker on the J3 header; WLEDkitty's sound-reactive mode needs an I²S mic there, and its remote needs the IR receiver fitted.</li>
           </ol>
           <figure style="margin:18px 0 0;">
@@ -252,7 +251,7 @@ lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
       </div>
 
       <h3 style="margin:0 0 6px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">Add hardware, add powers</h3>
-      <p style="margin:0 0 16px; max-width:64ch; font-size:15px;">The Sheen ships bare. Populate the sensor header, antenna pad, and IR spot to unlock the builds that need them.</p>
+      <p style="margin:0 0 16px; max-width:64ch; font-size:15px;">The Sheen is ready to mod. Populate the sensor header, antenna pad, and IR spot to unlock new projects.</p>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:0 0 48px;" class="grid-2col">
         <figure style="margin:0; background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:14px;">
           <img src="assets/photo-board-top.jpg" alt="The Newsheen board with an Adafruit I2S microphone on the sensor header and a coil LoRa antenna on the antenna pad" style="width:100%; display:block; border-radius:8px;">
@@ -266,9 +265,9 @@ lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
 
       <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:36px; align-items:start;">
         <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:24px 28px;">
-          <div style="font-family:'IBM Plex Mono',monospace; color:#c77d00; font-size:13px; font-weight:600; margin-bottom:10px;">!! running it on a battery</div>
-          <p style="margin:0 0 12px; font-size:14px;"><strong style="color:#14181b;">External power goes to the <code class="chip">N-EXT</code> pad only — never wire 5&nbsp;V or a battery to the <code class="chip">3V3</code> pad.</strong> That pad is the regulator's output; back-feeding it can damage the board.</p>
-          <p style="margin:0 0 12px; font-size:14px;">The 3.3&nbsp;V rail comes from an onboard regulator fed by the 5&nbsp;V bus, so external power must be a regulated 5&nbsp;V — a bare 3.7&nbsp;V LiPo browns the board out. Run the cell through a charge-and-boost board set to 5&nbsp;V: its output to the corner <code class="chip">N-EXT</code> pad and a <code class="chip">GND</code> pad, then bridge the <code class="chip">JP1</code> jumper beside it — the silk reads <code class="chip">SOLDER JP1 FOR EXT PWR</code>. Charge through the boost board's own USB, not the Sheen's.</p>
+          <div style="font-family:'IBM Plex Mono',monospace; color:#c77d00; font-size:13px; font-weight:600; margin-bottom:10px;">!! advanced mod — adding a battery</div>
+          <p style="margin:0 0 12px; font-size:14px;"><strong style="color:#14181b;">The Newsheen is designed to stay plugged in over USB-C</strong> — it has no battery circuit of its own, and we don't recommend a battery for beginners. It's an advanced mod you take on at your own risk.</p>
+          <p style="margin:0 0 12px; font-size:14px;">If you want one anyway: the 3.3&nbsp;V rail comes from an onboard regulator fed by the 5&nbsp;V bus, so external power must be a regulated 5&nbsp;V — a bare 3.7&nbsp;V LiPo browns the board out. Run a cell through a charge-and-boost board set to 5&nbsp;V into the corner <code class="chip">N-EXT</code> pad and a <code class="chip">GND</code> pad, then bridge the <code class="chip">JP1</code> jumper beside it (silk: <code class="chip">SOLDER JP1 FOR EXT PWR</code>). <strong style="color:#14181b;">Never put 5&nbsp;V or a raw battery on the <code class="chip">3V3</code> pad</strong> — that's the regulator's output, and back-feeding it can damage the board. Charge through the boost board's own USB, not the Sheen's.</p>
           <div style="font-size:13px; color:#98a09a;">Full GPIO map and build notes: <a href="https://github.com/RetiaLLC/Newsheen/blob/main/hardware/pinout.md" target="_blank" rel="noopener">hardware/pinout.md</a>. Part picks and a wiring diagram: ask in the <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener">Discord</a>.</div>
           <img src="assets/photo-battery.jpg" alt="A LiPo battery wired through a 5 V charge-and-boost board into the Newsheen's N-EXT and GND pads" style="width:100%; display:block; border-radius:10px; margin-top:16px;">
         </div>
@@ -287,7 +286,7 @@ lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
   <section id="links" style="border-top:1px solid #e2ddd0; background:#14181b;">
     <div style="max-width:1140px; margin:0 auto; padding:80px 36px 48px;">
       <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#3dffa0; margin-bottom:10px;">[05] // community_and_links</div>
-      <h2 style="margin:0 0 36px; font-size:44px; color:#faf9f5; font-weight:800; letter-spacing:-1.5px;">Join the litter</h2>
+      <h2 style="margin:0 0 36px; font-size:44px; color:#faf9f5; font-weight:800; letter-spacing:-1.5px;">Join the cool cats</h2>
       <div style="display:grid; gap:14px; font-size:15px; color:#9aa5a0;">
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://retia.io" target="_blank" rel="noopener" class="link-lit">get your own Sheen</a> — the Newsheen cat-lamp puck on the Retia store</div>
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://scriptkitty.sh" target="_blank" rel="noopener" class="link-lit">scriptkitty.sh</a> — Retia's browser flasher for the whole hardware family</div>
@@ -295,7 +294,7 @@ lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://github.com/RetiaLLC/Newsheen" target="_blank" rel="noopener" class="link-lit">github.com/RetiaLLC/Newsheen</a> — the board: 3D-printed base, pinout, IR-remote firmware (<a href="https://github.com/RetiaLLC/Newsheen/releases/tag/v1.0.0" target="_blank" rel="noopener" class="link-lit">v1.0.0 release</a>)</div>
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> firmware sources: <a href="https://github.com/RetiaLLC/WLEDkitty" target="_blank" rel="noopener" class="link-lit">WLEDkitty</a> · <a href="https://github.com/RetiaLLC/NewsheenRadio" target="_blank" rel="noopener" class="link-lit">NewsheenRadio</a> · <a href="https://github.com/RetiaLLC/ScriptkittyMeshtastic" target="_blank" rel="noopener" class="link-lit">Meshtastic</a> · <a href="https://github.com/RetiaLLC/MeshCore" target="_blank" rel="noopener" class="link-lit">MeshCore</a> · <a href="https://github.com/RetiaLLC/ESP32-Bus-Pirate" target="_blank" rel="noopener" class="link-lit">Bit Pirate</a></div>
         <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://github.com/skickar/catlamp.site" target="_blank" rel="noopener" class="link-lit">github.com/skickar/catlamp.site</a> — this site's source</div>
-        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener" class="link-lit">Retia Discord server</a> — come hang with the litter</div>
+        <div><span style="color:#ff4fd8; font-family:'IBM Plex Mono',monospace;">-&gt;</span> <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener" class="link-lit">Retia Discord server</a> — come hang with the cool cats</div>
       </div>
       <footer style="margin-top:64px; padding-top:24px; border-top:1px solid #2a322d; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#5a655f; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;">
         <span># the Newsheen — by <a href="https://retia.io" target="_blank" rel="noopener" class="link-static">Retia LLC</a><br># made in the USA by real catboys and catgirls, with ♥ and whiskers</span>
