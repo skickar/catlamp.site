@@ -1,4 +1,4 @@
-/* ScriptKitty DEF CON Badge — catalog render + Web Serial flasher + serial monitor + spin widget.
+/* ScriptKitty DEF CON Badge: catalog render + Web Serial flasher + serial monitor + spin widget.
    Flasher/serial logic ported from the design reference (esptool-js 0.4.1, vendored). */
 (function () {
   'use strict';
@@ -10,7 +10,7 @@
   var selId = null;
   var selBuild = 0;
   var flashing = false;
-  var termText = '// console idle — flash a build, or connect the serial monitor\n// one client per port: flashing and the monitor share the connection';
+  var termText = '// console idle: flash a build, or connect the serial monitor\n// one client per port: flashing and the monitor share the connection';
   var serOn = false;
   var serPort = null, serReader = null, serReading = false;
   // firmwareId -> {tag, count} for the [guides] cross-link (filled from tutorials/tutorials.json)
@@ -20,7 +20,7 @@
   function curBuild() { var s = sel(); return (s && s.builds[selBuild]) || null; }
 
   // Integrity: SHA-256 of the fetched image, hex. Lets the flasher refuse a bin whose
-  // bytes don't match the hash pinned in manifest.json — so a swapped/corrupted image
+  // bytes don't match the hash pinned in manifest.json: so a swapped/corrupted image
   // can't be written to hardware even if it was served from this origin.
   async function sha256hex(buf) {
     var dig = await crypto.subtle.digest('SHA-256', buf);
@@ -172,7 +172,7 @@
         if (n) guidesByFw[fwId] = { tag: t, count: n };
       });
       if (fw.length) renderCatalog();
-    }).catch(function () { /* tutorials optional — leave catalog as-is */ });
+    }).catch(function () { /* tutorials optional: leave catalog as-is */ });
   }
 
   // --- authorization gate (transmit/attack-capable firmware) -----------------
@@ -203,7 +203,7 @@
       cancel.textContent = 'Cancel';
       cancel.style.cssText = 'padding:9px 14px;border:1px solid #98a09a;background:#fff;border-radius:8px;font-family:inherit;font-weight:600;cursor:pointer;';
       var ok = document.createElement('button');
-      ok.textContent = 'I own / am authorized — continue';
+      ok.textContent = 'I own / am authorized: continue';
       ok.style.cssText = 'padding:9px 14px;border:1px solid #00a35f;background:#00a35f;color:#fff;border-radius:8px;font-family:inherit;font-weight:700;cursor:pointer;';
       function close(v) { try { document.body.removeChild(ov); } catch (_) {} resolve(v); }
       cancel.addEventListener('click', function () { close(false); });
@@ -218,15 +218,15 @@
   // --- flasher (esptool-js 0.4.1) --------------------------------------------
   async function doFlash() {
     var b = curBuild();
-    if (!b) { flog('!! no hosted build selected — use FLASH LOCAL .BIN with a downloaded image'); return; }
+    if (!b) { flog('!! no hosted build selected: use FLASH CUSTOM .BIN with a downloaded image'); return; }
     if (flashing) return;
     var gs = sel();
     if (gs && gs.gate) {
       var authed = await showAuthGate(gs);
-      if (!authed) { flog('!! flash cancelled — authorization not confirmed'); return; }
-      flog('   authorization confirmed by user — proceeding');
+      if (!authed) { flog('!! flash cancelled: authorization not confirmed'); return; }
+      flog('   authorization confirmed by user: proceeding');
     }
-    if (!navigator.serial) { flog('!! Web Serial not available — use Chrome, Edge or recent Firefox over HTTPS'); return; }
+    if (!navigator.serial) { flog('!! Web Serial not available: use Chrome, Edge or recent Firefox over HTTPS'); return; }
     setFlashing(true); setProgress(-1);
     try {
       flog('$ fetch ' + b.file);
@@ -237,14 +237,14 @@
         flog('$ verify sha256 ' + b.file);
         var got = await sha256hex(buf);
         if (got !== b.sha256.toLowerCase()) {
-          throw new Error('integrity check FAILED — refusing to flash. expected ' + b.sha256.slice(0, 16) + '…, got ' + got.slice(0, 16) + '…');
+          throw new Error('integrity check FAILED: refusing to flash. expected ' + b.sha256.slice(0, 16) + '…, got ' + got.slice(0, 16) + '…');
         }
-        flog('   ok — ' + got.slice(0, 16) + '… matches manifest');
+        flog('   ok: ' + got.slice(0, 16) + '… matches manifest');
       }
       await flashBytes(buf, b.file, b.addr || 0, !!b.erase);
     } catch (e) {
       flog('!! ' + e.message);
-      if (/fetch|CORS|network/i.test(e.message + '')) flog('   (image fetch failed — check your connection, or download the .bin from the release page and use FLASH LOCAL .BIN)');
+      if (/fetch|CORS|network/i.test(e.message + '')) flog('   (image fetch failed: check your connection, or download the .bin from the release page and use FLASH CUSTOM .BIN)');
       setFlashing(false);
     }
   }
@@ -253,7 +253,7 @@
     var file = ev.target.files && ev.target.files[0];
     ev.target.value = '';
     if (!file || flashing) return;
-    if (!navigator.serial) { flog('!! Web Serial not available — use Chrome, Edge or recent Firefox over HTTPS'); return; }
+    if (!navigator.serial) { flog('!! Web Serial not available: use Chrome, Edge or recent Firefox over HTTPS'); return; }
     setFlashing(true); setProgress(-1);
     try {
       var buf = new Uint8Array(await file.arrayBuffer());
@@ -263,7 +263,7 @@
 
   async function flashBytes(buf, name, addr, erase) {
     var T = window.esptooljs;
-    if (!T || !T.ESPLoader) throw new Error('esptool-js not loaded yet — retry in a moment');
+    if (!T || !T.ESPLoader) throw new Error('esptool-js not loaded yet: retry in a moment');
     flog('   ' + (buf.length / 1048576).toFixed(2) + ' MB loaded');
     var binStr = '';
     for (var i = 0; i < buf.length; i += 32768) binStr += String.fromCharCode.apply(null, buf.subarray(i, Math.min(i + 32768, buf.length)));
@@ -283,11 +283,11 @@
         flashSize: 'keep', flashMode: 'keep', flashFreq: 'keep', eraseAll: !!erase, compress: true,
         reportProgress: function (idx, written, total) { setProgress(Math.round(written / total * 100)); }
       });
-      flog('   write complete — resetting');
+      flog('   write complete: resetting');
       try {
         if (typeof loader.hardReset === 'function') await loader.hardReset();
         else if (transport.setRTS) { await transport.setRTS(true); await new Promise(function (r) { setTimeout(r, 100); }); await transport.setRTS(false); }
-      } catch (_) { flog('   auto-reset skipped — unplug and replug the Sheen to boot'); }
+      } catch (_) { flog('   auto-reset skipped: unplug and replug the Sheen to boot'); }
       flog(':: done. unplug and replug the Sheen and it will boot. purr.');
     } finally {
       try { await transport.disconnect(); } catch (_) {}
@@ -299,13 +299,13 @@
   function setSerBtn() { $('btn-ser').textContent = serOn ? '[ DISCONNECT ]' : '[ CONNECT ]'; }
 
   async function serConnect() {
-    if (!navigator.serial) { slog('!! Web Serial not available — use Chrome, Edge or recent Firefox'); return; }
+    if (!navigator.serial) { slog('!! Web Serial not available: use Chrome, Edge or recent Firefox'); return; }
     try {
       var port = await navigator.serial.requestPort();
       await port.open({ baudRate: parseInt($('ser-baud').value, 10) });
       serPort = port; serReading = true;
       serOn = true; setSerBtn();
-      slog(':: connected @ ' + $('ser-baud').value + ' baud (DTR held steady — no download-mode trap)');
+      slog(':: connected @ ' + $('ser-baud').value + ' baud (DTR held steady: no download-mode trap)');
       var dec = new TextDecoder();
       while (port.readable && serReading) {
         var reader = port.readable.getReader(); serReader = reader;
@@ -407,7 +407,7 @@
       s.innerHTML = '';
       fw.forEach(function (f) {
         var o = document.createElement('option');
-        o.value = f.id; o.textContent = f.name + ' — ' + f.ver;
+        o.value = f.id; o.textContent = f.name + ': ' + f.ver;
         s.appendChild(o);
       });
       renderFlashPane();
