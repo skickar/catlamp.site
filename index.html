@@ -27,6 +27,14 @@
     #topnav > div{flex-wrap:nowrap!important; gap:14px!important; font-size:13px!important; margin-left:12px!important;}
     #topnav a{white-space:nowrap;}
   }
+  /* tidy the hero call-to-action on mobile: keep the two buttons on one line */
+  @media (max-width:760px){
+    #top{padding-left:20px!important; padding-right:20px!important;}
+    .hero-actions{gap:10px;}
+    .hero-actions .btn-dark,.hero-actions .btn-buy{flex:1 1 0; text-align:center; font-size:12px!important; padding:12px 6px!important;}
+    .hero-actions a[href="#start"]{flex-basis:100%; border-bottom:none!important; padding-bottom:0!important;}
+    .hero-note{font-size:11.5px; margin-top:16px;}
+  }
 </style>
 <script type="module" src="vendor/esptool-init.js"></script>
 </head>
@@ -65,12 +73,12 @@
       <div style="font-size:14px; font-weight:600; color:#14181b; margin-bottom:18px;">By <a href="https://retia.io" target="_blank" rel="noopener">Retia LLC</a>.</div>
       <p style="margin:0 0 16px; max-width:52ch; font-size:16px;">What if your squishy cat lamp was built by ethical hackers and made to mod, hack, and grow with you? Meet the Newsheen! After 5 years of teaching workshops at hacker conferences and kids cyber camps, we built the Newsheen to be the easiest way to get started hacking with IoT devices, and making your own smart devices.</p>
       <p style="margin:0 0 30px; max-width:52ch; font-size:16px;">This little cat features Bluetooth, Wi-Fi, and native USB, and by default runs WLED, the open-source firmware that turns it into a flexible smart lamp. It supports hardware add-ons and IoT projects: add a microphone, IR receiver, speaker, or even a LoRa radio to transform your cat into an audio-reactive lamp, Meshtastic radio node, internet radio speaker, and more!</p>
-      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+      <div class="hero-actions" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
         <a href="#flash" class="btn-dark" style="font-size:14px; padding:13px 18px; border-radius:10px; white-space:nowrap;">[ Flash your sheen ]</a>
         <a href="https://retia.io" target="_blank" rel="noopener" class="btn-buy" style="font-size:14px; padding:13px 16px; border-radius:10px; white-space:nowrap;">[ get a Sheen ↗ ]</a>
         <a href="#start" style="font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13px; color:#14181b; text-decoration:none; border-bottom:1px solid #b9c0b4; padding-bottom:2px; white-space:nowrap;">Getting started →</a>
       </div>
-      <div style="margin-top:24px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#98a09a;">// flashing and the serial monitor run on any browser supporting Web Serial.<br>// made in the USA by real catboys and catgirls.</div>
+      <div class="hero-note" style="margin-top:24px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#98a09a; line-height:1.7;">// flashing runs in any browser with Web Serial · made in the USA by real catboys and catgirls</div>
     </div>
     <div style="user-select:none; display:flex; align-items:center; justify-content:center;">
       <div style="position:relative; width:100%; max-width:460px; aspect-ratio:1/1;">
@@ -82,7 +90,7 @@
   <section id="start" style="border-top:1px solid #e2ddd0;">
     <div style="max-width:1140px; margin:0 auto; padding:80px 36px;">
       <div style="font-family:'IBM Plex Mono',monospace; font-size:13px; color:#00a35f; margin-bottom:10px;">[01] // getting_started</div>
-      <h2 style="margin:0 0 14px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">Glow up your cat in 4 steps</h2>
+      <h2 style="margin:0 0 14px; font-size:44px; color:#14181b; font-weight:800; letter-spacing:-1.5px;">Glow up your cat in 3 steps</h2>
       <p style="margin:0 0 44px; max-width:62ch; font-size:16px;">Your Sheen ships as a sweet and innocent smart lamp, flashed with the WLED project. Here's how to switch, or restore any Newsheen from scratch!</p>
       <div style="max-width:700px;">
         <ol style="list-style:none; margin:0; padding:0; display:grid; gap:26px;">
@@ -272,22 +280,13 @@ lora      SX1262: NSS 10 · SCK 13 · MOSI 11 · MISO 12
         </figure>
       </div>
 
-      <div style="display:grid; grid-template-columns:1.1fr 1fr; gap:36px; align-items:start;">
-        <div style="background:#fff; border:1px solid #e2ddd0; border-radius:14px; padding:24px 28px;">
-          <div style="font-family:'IBM Plex Mono',monospace; color:#c77d00; font-size:13px; font-weight:600; margin-bottom:10px;">!! advanced mod: adding a battery</div>
-          <p style="margin:0 0 12px; font-size:14px;"><strong style="color:#14181b;">The Newsheen is designed to stay plugged in over USB-C</strong>: it has no battery circuit of its own, and we don't recommend a battery for beginners. It's an advanced mod you take on at your own risk.</p>
-          <p style="margin:0 0 12px; font-size:14px;">If you want one anyway: the 3.3&nbsp;V rail comes from an onboard regulator fed by the 5&nbsp;V bus, so external power must be a regulated 5&nbsp;V: a bare 3.7&nbsp;V LiPo browns the board out. Run a cell through a charge-and-boost board set to 5&nbsp;V into the corner <code class="chip">N-EXT</code> pad and a <code class="chip">GND</code> pad, then bridge the <code class="chip">JP1</code> jumper beside it (silk: <code class="chip">SOLDER JP1 FOR EXT PWR</code>). <strong style="color:#14181b;">Never put 5&nbsp;V or a raw battery on the <code class="chip">3V3</code> pad</strong>: that's the regulator's output, and back-feeding it can damage the board. Charge through the boost board's own USB, not the Sheen's.</p>
-          <div style="font-size:13px; color:#98a09a;">Full GPIO map and build notes: <a href="https://github.com/RetiaLLC/Newsheen/blob/main/hardware/pinout.md" target="_blank" rel="noopener">hardware/pinout.md</a>. Part picks and a wiring diagram: ask in the <a href="https://discord.gg/cJHNswdSTz" target="_blank" rel="noopener">Discord</a>.</div>
-          <img src="assets/photo-battery.jpg" alt="A LiPo battery wired through a 5 V charge-and-boost board into the Newsheen's N-EXT and GND pads" style="width:100%; display:block; border-radius:10px; margin-top:16px;">
-        </div>
-        <div>
-          <h3 style="margin:0 0 10px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">The shell &amp; case files</h3>
-          <p style="margin:0 0 14px; max-width:52ch; font-size:15px;">The puck sits in a 3D-printed base under the translucent silicone lamp. Download the printable base, button, and retaining ring (v4) from the Newsheen repo.</p>
-          <img src="assets/photo-in-base.jpg" alt="The Newsheen board glowing blue inside its purple 3D-printed base, with the mic and LoRa antenna fitted" style="width:100%; max-width:320px; border-radius:12px; border:1px solid #e2ddd0; margin-bottom:14px;">
-          <div style="font-size:14px; line-height:1.9;">→ <a href="https://github.com/RetiaLLC/Newsheen/tree/main/hardware/3d" target="_blank" rel="noopener">hardware/3d</a>: printed base + button + retaining ring + board STLs<br>
-          → <a href="https://github.com/RetiaLLC/Newsheen/blob/main/hardware/pinout.md" target="_blank" rel="noopener">hardware/pinout.md</a>: full GPIO map + build notes<br>
-          → <a href="https://github.com/RetiaLLC/Newsheen/releases/tag/v1.0.0" target="_blank" rel="noopener">Newsheen v1.0.0 release</a>: ready-to-flash factory bins</div>
-        </div>
+      <div style="max-width:760px;">
+        <h3 style="margin:0 0 10px; font-size:24px; color:#14181b; font-weight:800; letter-spacing:-0.6px;">The shell &amp; case files</h3>
+        <p style="margin:0 0 14px; max-width:52ch; font-size:15px;">The puck sits in a 3D-printed base under the translucent silicone lamp. Download the printable base, button, and retaining ring (v4) from the Newsheen repo.</p>
+        <img src="assets/photo-in-base.jpg" alt="The Newsheen board glowing blue inside its purple 3D-printed base, with the mic and LoRa antenna fitted" style="width:100%; max-width:320px; border-radius:12px; border:1px solid #e2ddd0; margin-bottom:14px;">
+        <div style="font-size:14px; line-height:1.9;">→ <a href="https://github.com/RetiaLLC/Newsheen/tree/main/hardware/3d" target="_blank" rel="noopener">hardware/3d</a>: printed base + button + retaining ring + board STLs<br>
+        → <a href="https://github.com/RetiaLLC/Newsheen/blob/main/hardware/pinout.md" target="_blank" rel="noopener">hardware/pinout.md</a>: full GPIO map, power/battery build notes<br>
+        → <a href="https://github.com/RetiaLLC/Newsheen/releases/tag/v1.0.0" target="_blank" rel="noopener">Newsheen v1.0.0 release</a>: ready-to-flash factory bins</div>
       </div>
     </div>
   </section>
