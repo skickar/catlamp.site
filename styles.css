@@ -147,6 +147,66 @@ button[disabled]:hover { background: #14181b; }
 }
 .build-row.sel { border-color: #00a35f; }
 
+/* download rows in the shell & case block */
+.dl-row {
+  display: block;
+  background: #fff;
+  border: 1px solid #e2ddd0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  color: #00a35f;
+  transition: border-color 0.12s ease;
+}
+.dl-row:hover { border-color: #00a35f; color: #d6008f; }
+.dl-row span {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 13px;
+  color: #5d6659;
+}
+
+/* collapsible quirk / note disclosures on the flash page: hidden until clicked */
+.quirk {
+  background: #fff;
+  border: 1px solid #e2ddd0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.quirk > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 15px 22px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  color: #00a35f;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+.quirk > summary::-webkit-details-marker { display: none; }
+.quirk > summary::before {
+  content: '+';
+  font-weight: 700;
+  color: #98a09a;
+  width: 11px;
+  text-align: center;
+  display: inline-block;
+}
+.quirk[open] > summary::before { content: '\2212'; }
+.quirk > summary:hover { color: #d6008f; }
+.quirk > summary:hover::before { color: #d6008f; }
+.quirk-pink > summary { color: #d6008f; font-weight: 600; font-size: 14px; }
+.quirk-body {
+  padding: 2px 22px 20px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 /* responsive: the reference is a fixed desktop layout; collapse the grids on small screens */
 @media (max-width: 920px) {
   .grid-hero, .grid-2col { grid-template-columns: 1fr !important; }
