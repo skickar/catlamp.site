@@ -1,0 +1,94 @@
+/* Vet clinic ("Diagnose my cat"): everything vet.js renders, on the site's light theme.
+   Static layout + type for nav/footer live inline in index.html, same as the rest of the site. */
+
+.mark { background: linear-gradient(transparent 66%, #86e6bd 66%, #86e6bd 96%, transparent 96%); padding: 0 3px; }
+[hidden] { display: none !important; }
+.link-static { color: #3dffa0; text-decoration: none; }
+.link-static:hover { text-decoration: underline; }
+
+.vet-wrap { max-width: 1080px; margin: 0 auto; padding: 0 36px; box-sizing: border-box; }
+.vet-hero { padding: 52px 36px 30px; display: grid; grid-template-columns: 1fr 300px; gap: 44px; align-items: start; }
+.vet-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #00a35f; margin-bottom: 12px; }
+.vet-h1 { margin: 0 0 14px; font-size: 52px; line-height: 1.02; color: #14181b; font-weight: 900; letter-spacing: -1.8px; }
+.vet-sub { margin: 0 0 22px; max-width: 64ch; font-size: 17px; }
+.vet-sub strong { color: #14181b; }
+.vet-note { background: #eefaf3; border: 1px solid #00a35f; border-left-width: 4px; border-radius: 10px; padding: 14px 18px; max-width: 64ch; font-size: 14px; color: #2e5a44; }
+.vet-note b { color: #14181b; }
+.vet-note-head { font-family: 'IBM Plex Mono', monospace; color: #00834c; font-weight: 600; font-size: 13px; margin-bottom: 5px; }
+
+/* the patient card: ASCII cat + one-line state, recoloured by exam phase */
+.vet-console { position: sticky; top: 84px; background: #fff; border: 1px solid #e2ddd0; border-radius: 14px; padding: 22px 20px 18px; text-align: center; transition: background .3s, border-color .3s; }
+.vet-cat { font-family: 'IBM Plex Mono', monospace; font-size: 24px; line-height: 1.15; color: #14181b; margin: 0 0 12px; white-space: pre; }
+.vet-state-title { font-weight: 700; font-size: 16px; color: #14181b; text-wrap: balance; }
+.vet-state-sub { font-size: 13px; color: #5d6659; margin-top: 4px; line-height: 1.5; }
+.vet-hero[data-phase="working"] .vet-console { border-color: #86e6bd; }
+.vet-hero[data-phase="healthy"] .vet-console { background: #eefaf3; border-color: #00a35f; }
+.vet-hero[data-phase="healthy"] .vet-cat, .vet-hero[data-phase="healthy"] .vet-state-title { color: #00834c; }
+.vet-hero[data-phase="check"] .vet-console { background: #fff8e6; border-color: #e6c46a; }
+.vet-hero[data-phase="check"] .vet-cat, .vet-hero[data-phase="check"] .vet-state-title { color: #8a5a00; }
+.vet-hero[data-phase="rework"] .vet-console { background: #fdf1f0; border-color: #e39a93; }
+.vet-hero[data-phase="rework"] .vet-cat, .vet-hero[data-phase="rework"] .vet-state-title { color: #b3261e; }
+
+/* controls */
+.vet-controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; padding: 16px 18px; background: #f2efe7; border: 1px solid #e2ddd0; border-radius: 12px; margin: 0 0 14px; }
+.ctl { display: inline-flex; align-items: center; gap: .45rem; font-size: 14px; color: #3c443f; cursor: pointer; }
+.ctl select { font-family: 'IBM Plex Mono', monospace; font-size: 13px; padding: 7px 10px; border: 1px solid #d5cfc0; border-radius: 8px; background: #fff; color: #14181b; }
+.ctl input[type="checkbox"] { accent-color: #00a35f; width: 16px; height: 16px; margin: 0; }
+.vet-parts { display: contents; }
+.vet-go { margin-left: auto; font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 14px; background: #14181b; color: #3dffa0; border: 0; border-radius: 9px; padding: 11px 20px; cursor: pointer; }
+.vet-go:hover { background: #232a26; }
+.vet-go:disabled { opacity: .45; cursor: not-allowed; }
+.vet-bar { height: 8px; background: #e6e2d6; border-radius: 999px; overflow: hidden; margin: 0 0 14px; }
+.vet-bar-fill { height: 100%; width: 0; background: #00a35f; border-radius: 999px; transition: width .3s ease; }
+
+/* status banners (vet.js sets banner-busy / banner-ok / banner-err) */
+.banner { font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.55; padding: 12px 16px; border: 1px solid #d5cfc0; border-radius: 10px; background: #fff; color: #3c443f; margin: 0 0 16px; }
+.banner b, .banner strong { color: #14181b; }
+.banner-busy { border-color: #86e6bd; }
+.banner-ok { border-color: #00a35f; background: #eefaf3; color: #1f5a3c; }
+.banner-err { border-color: #e39a93; background: #fdf1f0; color: #7a2019; }
+.banner-warn { border-color: #e6c46a; background: #fff8e6; color: #6b4a00; }
+.btn-inline { display: inline-block; margin: 8px 8px 0 0; padding: 6px 12px; font: 600 12px 'IBM Plex Mono', monospace; background: #14181b; color: #3dffa0; border: 0; border-radius: 7px; cursor: pointer; }
+.btn-inline:hover { background: #232a26; }
+
+/* report */
+.vet-report { margin-top: 4px; }
+.vet-summary { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding: 14px 16px; border: 1px solid #e2ddd0; border-radius: 12px; margin-bottom: 6px; background: #fff; }
+.vet-verdict { font-weight: 800; font-size: 19px; color: #14181b; }
+.verdict-healthy { border-color: #00a35f; background: #eefaf3; } .verdict-healthy .vet-verdict { color: #00834c; }
+.verdict-check { border-color: #e6c46a; background: #fff8e6; } .verdict-check .vet-verdict { color: #8a5a00; }
+.verdict-needs-rework { border-color: #e39a93; background: #fdf1f0; } .verdict-needs-rework .vet-verdict { color: #b3261e; }
+.vet-counts { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5d6659; }
+.tag-head { display: flex; align-items: center; gap: 10px; margin: 24px 0 10px; }
+.tag-name { font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; color: #00834c; white-space: nowrap; }
+.tag-rule { flex: 1; height: 1px; background: #e2ddd0; }
+.vet-row { display: flex; gap: 12px; padding: 10px 10px; border-bottom: 1px solid #ece8dd; }
+.vet-row:last-child { border-bottom: 0; }
+.vet-icon { font-family: 'IBM Plex Mono', monospace; font-weight: 700; width: 18px; flex: none; text-align: center; color: #9aa39d; }
+.vet-pass .vet-icon { color: #00a35f; } .vet-warn .vet-icon { color: #c98a00; } .vet-fail .vet-icon { color: #c62828; }
+.vet-fail { background: #fdf6f5; border-radius: 8px; } .vet-warn { background: #fffbef; border-radius: 8px; }
+.vet-body { min-width: 0; }
+.vet-title { font-weight: 600; font-size: 14px; color: #14181b; }
+.vet-detail { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #5d6659; margin-top: 2px; overflow-wrap: anywhere; }
+.vet-hint { font-size: 13px; color: #2e5a44; margin-top: 5px; line-height: 1.5; }
+.vet-fail .vet-hint { color: #7a2019; } .vet-warn .vet-hint { color: #6b4a00; }
+.vet-links { margin-top: 6px; display: flex; gap: 14px; flex-wrap: wrap; }
+.vet-link { font-size: 13px; color: #00834c; font-weight: 600; }
+.vet-actions { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+.vet-btn { font-size: 13px; padding: 9px 18px; border-radius: 8px; cursor: pointer; background-clip: padding-box; }
+button.btn-outline { background: transparent; }
+button.btn-dark { border: 2px solid #14181b; }
+.vet-foot { margin: 30px 0 56px; font-size: 13px; color: #6b756f; max-width: 78ch; line-height: 1.6; }
+.vet-foot b { color: #3c443f; }
+
+@media (max-width: 920px) {
+  .vet-hero { grid-template-columns: 1fr; gap: 24px; padding: 40px 18px 20px; }
+  .vet-console { position: static; }
+  .vet-h1 { font-size: 40px; letter-spacing: -1.2px; }
+  .vet-wrap { padding: 0 18px; }
+  #topnav { padding: 12px 18px !important; }
+}
+@media (max-width: 560px) {
+  .vet-go { margin-left: 0; width: 100%; }
+  .vet-h1 { font-size: 34px; }
+}

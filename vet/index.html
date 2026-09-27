@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnose my cat · Newsheen</title>
+<meta name="description" content="A soldering check-up for the Newsheen cat lamp, straight from the browser: rest levels on every pin, solder bridges, the LoRa radio's ID, whether the antenna is on, the I2C header, and whether the firmware boots. Nothing is written to flash.">
+<meta property="og:title" content="Diagnose my cat · Newsheen">
+<meta property="og:description" content="A soldering check-up for your Sheen, from the browser. Nothing is written to flash.">
+<meta property="og:url" content="https://catlamp.site/vet/">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preload" href="../vendor/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../vendor/fonts.css">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="vet.css">
+</head>
+<body>
+<div id="top" style="font-family:'Archivo',sans-serif; background:#faf9f5; color:#3c443f; min-height:100vh; font-size:15px; line-height:1.65;">
+
+  <nav id="topnav" style="position:sticky; top:0; z-index:50; display:flex; align-items:center; gap:20px; padding:14px 36px; background:rgba(250,249,245,0.94); backdrop-filter:blur(8px); border-bottom:1px solid #e2ddd0;">
+    <a href="../" class="nav-word" style="font-family:'IBM Plex Mono',monospace; font-weight:600; color:#14181b; font-size:15px; text-decoration:none;">=^..^= <span style="color:#00a35f;">NEWSHEEN</span></a>
+    <div style="display:flex; gap:22px; align-items:center; flex-wrap:wrap; font-size:14px; font-weight:600; margin-left:auto;">
+      <a href="../" class="nav-link">&larr; Back to Newsheen</a>
+      <a href="../community/" class="nav-link">Community projects</a>
+      <a href="https://scriptkitty.sh" target="_blank" rel="noopener" class="nav-link">All Retia flashers</a>
+      <a href="../#flash" class="btn-dark" style="font-size:13px; padding:9px 18px; border-radius:8px;">[ flash ]</a>
+    </div>
+  </nav>
+
+  <header class="vet-wrap vet-hero" id="vetHero" data-phase="idle">
+    <div>
+      <div class="vet-kicker">// vet · a soldering check-up</div>
+      <h1 class="vet-h1">Diagnose <span class="mark">my cat</span></h1>
+      <p class="vet-sub">Built a Sheen, or added a radio, and want to know it's soldered right? Plug it in over USB-C. The vet looks at every pin the way a multimeter would, checks neighbouring pins for solder bridges, asks the LoRa radio to identify itself, listens for the antenna, scans the sensor header, then reboots the board and watches its firmware come up. <strong>Nothing is written to flash</strong> &mdash; whatever is on your cat stays on your cat.</p>
+      <div class="vet-note"><div class="vet-note-head">=^..^= what you need</div><div>A desktop browser that speaks Web Serial (<b>Chrome</b> or <b>Edge</b>), a data USB-C cable, and your Sheen. If it doesn't answer, hold <b>BOOT</b> while plugging it in.</div></div>
+    </div>
+    <div class="vet-console">
+      <pre class="vet-cat" id="heroCat" aria-hidden="true"></pre>
+      <div class="vet-state">
+        <div class="vet-state-title" id="heroTitle">Ready when you are</div>
+        <div class="vet-state-sub" id="heroSub">Plug in your Sheen and press Diagnose.</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="vet-wrap">
+    <div id="unsupported" class="banner banner-warn" hidden>
+      <strong>This browser can't reach serial devices.</strong>
+      The vet needs the Web Serial API &mdash; use a desktop browser that supports it (<b>Chrome</b>, <b>Edge</b>, or <b>Firefox</b> with Web Serial enabled).
+    </div>
+
+    <section class="vet-controls" aria-label="Exam options">
+      <label class="ctl">Patient
+        <select id="protocol"><option value="auto">Auto (identify the board)</option></select>
+      </label>
+      <span id="parts" class="vet-parts"></span>
+      <label class="ctl ctl-check" title="After the exam, reboot the board into its firmware and read the console for a few seconds"><input type="checkbox" id="bootCheck" checked> Boot check</label>
+      <label class="ctl ctl-check" title="Blink the board's debug LED during the exam so you can see it's alive"><input type="checkbox" id="blink" checked> Blink LED</label>
+      <label class="ctl ctl-check" title="After the pin checks, listen on the IR receiver for 8 s while you hold a remote at the board"><input type="checkbox" id="irTest" checked> IR remote test</label>
+      <button class="vet-go" id="diagnose" type="button">[ diagnose ]</button>
+    </section>
+    <div class="vet-bar" id="heroBar" hidden><div class="vet-bar-fill" id="heroBarFill"></div></div>
+
+    <div id="status" class="banner banner-detect" hidden></div>
+
+    <section id="report" class="vet-report" hidden>
+      <div class="vet-summary" id="summary"></div>
+      <div id="checks"></div>
+      <div class="vet-actions">
+        <button class="btn-outline vet-btn" id="copy" type="button">Copy report</button>
+        <button class="btn-dark vet-btn" id="again" type="button">Diagnose again</button>
+      </div>
+    </section>
+
+    <p class="vet-foot"><b>What the vet can see:</b> rest levels with only the chip's own pull resistors, whether neighbouring module pins are shorted, whether the LoRa radio answers over SPI and hears anything through its antenna, I2C pull-ups and devices, the flash and PSRAM fitted, and how the board boots. <b>What it can't:</b> LEDs lighting, speakers, anything that needs firmware timing &mdash; for those it hands you the running firmware's own controls when it recognises it. It only reads memory, toggles pins the way a multimeter would, and resets the board. Flash and eFuses are never written.</p>
+  </main>
+
+  <footer style="border-top:1px solid #e2ddd0; background:#14181b;">
+    <div style="max-width:1080px; margin:0 auto; padding:40px 36px; font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:#5a655f; display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px;">
+      <span># the Newsheen, <a href="../" class="link-static">catlamp.site</a> · vet clinic<br># the same check-up Retia runs on the bench before a Sheen ships</span>
+      <span>$ echo "stay curious, stay pawsitive" &amp;&amp; exit 0</span>
+    </div>
+  </footer>
+</div>
+<script type="module" src="vet.js"></script>
+</body>
+</html>

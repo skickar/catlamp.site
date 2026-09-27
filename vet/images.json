@@ -1,0 +1,79 @@
+{
+ "416b3b555b436be0b685b7334f60f0f0b472918b1f47821fd8ce8f718abfb467": {
+  "id": "newsheen-badusb",
+  "name": "Bad Nugget (BadUSB)",
+  "version": "1.1.0",
+  "line": "newsheen",
+  "model": "Newsheen (ESP32-S3 Pusheen Puck)"
+ },
+ "297da08a29064a088693453bfb72570512021d447a96339cb4af27d60eaede05": {
+  "id": "newsheen-bitpirate",
+  "name": "Bit Pirate",
+  "version": "1.6",
+  "line": "newsheen",
+  "model": "Newsheen Puck"
+ },
+ "399e5b01c039e86088966bdb1ab3076db45d3a2210586812f009b43d1cf5a134": {
+  "id": "newsheen-circuitpython",
+  "name": "CircuitPython",
+  "version": "10.2.1-newsheen.1",
+  "line": "newsheen",
+  "model": "Newsheen Puck"
+ },
+ "75b157e307752b2a241fbe6663101caf2c7c3219ed85cc7d0e1e417d84a5bf47": {
+  "id": "newsheen-meshcore-ble",
+  "name": "MeshCore Companion (Bluetooth)",
+  "version": "1.16.0",
+  "line": "newsheen",
+  "model": "Newsheen (ESP32-S3 Pusheen Puck)"
+ },
+ "abe0a15ac4d670c072a7b6a6575aaab064075a9530d7cbd3efdb4d221e21cdb6": {
+  "id": "newsheen-meshcore-usb",
+  "name": "MeshCore Companion (USB Serial)",
+  "version": "1.16.0",
+  "line": "newsheen",
+  "model": "Newsheen (ESP32-S3 Pusheen Puck)"
+ },
+ "99408019f5e8f4b93c756e1ff308572e0994627888848897bb1797157a1a2cb8": {
+  "id": "newsheen-meshtastic",
+  "name": "Meshtastic",
+  "version": "2.7.23",
+  "line": "newsheen",
+  "model": "Newsheen (ESP32-S3 Pusheen Puck)"
+ },
+ "7465d62a240a1e8681920a028f10f2e7344c287cef1de71839502dcdcab97849": {
+  "id": "newsheen-motoko",
+  "name": "Motoko",
+  "version": "4.0.0",
+  "line": "newsheen",
+  "model": "Newsheen Puck"
+ },
+ "11001386824f0aeb2c52f8ec606acac78dbf8e6d42cdbd19db2602fabc88934b": {
+  "id": "newsheen-radio-catalog",
+  "name": "Newsheen Radio (with offline atlas)",
+  "version": "1.1.0",
+  "line": "newsheen",
+  "model": "Newsheen Puck"
+ },
+ "589853ed76176a64d9193142a0152ed31be7818ec9dd3a9167a495f217e58e7a": {
+  "id": "newsheen-radio",
+  "name": "Newsheen Radio",
+  "version": "1.0.1",
+  "line": "newsheen",
+  "model": "Newsheen Puck"
+ },
+ "a811bc875896d6943fdd64938210a47f6ca2f8a564faee7ae908296bec16e07c": {
+  "id": "newsheen-reticulum-rnode",
+  "name": "Reticulum RNode",
+  "version": "1.85",
+  "line": "newsheen",
+  "model": "Newsheen (ESP32-S3 Pusheen Puck)"
+ },
+ "a8b036772fb9209ffe6a052180d5e62b4034891f1acdf98949af8e091d492a86": {
+  "id": "newsheen-wled",
+  "name": "WLEDkitty",
+  "version": "17.0.0-dev",
+  "line": "newsheen",
+  "model": "Newsheen Puck"
+ }
+}
